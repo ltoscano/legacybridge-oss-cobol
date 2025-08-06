@@ -1,4 +1,4 @@
-# 🐍 LegacyBridge COBOL Migration Agents - Open Source Edition
+# 🐍 LegacyBridge OSS COBOL Migration Agents
 
 **AI-powered COBOL to Java (Quarkus) migration framework built on Python using `atomic-agents` and `Instructor` for seamless orchestration, structured validation, and automatic cost tracking.**
 
@@ -77,7 +77,7 @@ While the original C# project offered a strong foundation, this Python version i
 This Python rewrite leverages **Instructor** library for superior LLM interactions:
 
 - **📝 Optimized Prompts**: All agent prompts have been refined for better accuracy and consistency
-- **🛡️ Structured Communication**: Instructor enforces strict input/output schemas via Pydantic, reducing AI errors by 60-80%
+- **🛡️ Structured Communication**: Instructor enforces strict input/output schemas via Pydantic, reducing AI errors
 - **🔄 Automatic Retries**: Built-in retry logic with validation ensures robust responses
 - **🌐 Multi-Provider Support**: Easy switching between OpenAI, Azure OpenAI, Anthropic, and other providers
 - **⚡ Performance**: Structured responses eliminate manual parsing, improving speed and reliability
@@ -212,7 +212,7 @@ Estimated Cost: $0.18
 
 ### Requirements
 
-- Python 3.10+
+- Python 3.12+
 - pip or poetry
 
 ### Setup
