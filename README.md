@@ -363,4 +363,5 @@ graph TB
     class KERNEL_BUILDER,MIGRATION_PROCESS kernelStyle
     class COBOL_ANALYZER,JAVA_CONVERTER,DEPENDENCY_MAPPER agentStyle
     class FILE_HELPER,ENHANCED_LOGGER,CHAT_LOGGER helperStyle
-    class J
+    class JAVA_FILES,REPORTS,LOGS_DIR outputStyle
+```
