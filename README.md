@@ -285,11 +285,11 @@ graph TB
     end
     
     subgraph AI_AGENTS ["🤖 Atomic Agents"]
-        COBOL_AGENT["🔍 CobolAnalyzerAgent<br/>• Structure Analysis<br/>• Complexity Metrics<br/>• Business Logic Detection"]
+        COBOL_AGENT["🔍 CobolAnalyzerAgent<br/>• Structure Analysis<br/>• Variable Mapping<br/>• Logic Flow Detection<br/>• Copybook References"]
         
-        JAVA_AGENT["☕ JavaConverterAgent<br/>• COBOL→Java Conversion<br/>• Quarkus Annotations<br/>• Clean Code Generation"]
+        JAVA_AGENT["☕ JavaConverterAgent<br/>• COBOL→Java Translation<br/>• Quarkus Integration<br/>• Best Practices<br/>• Error Handling"]
         
-        DEPENDENCY_AGENT["🗺️ DependencyMapperAgent<br/>• Relationship Mapping<br/>• Mermaid Diagrams<br/>• Risk Assessment"]
+        DEPENDENCY_AGENT["🗺️ DependencyMapperAgent<br/>• Relationship Analysis<br/>• Mermaid Diagrams<br/>• Usage Patterns<br/>• Risk Assessment"]
     end
     
     subgraph DATA_MODELS ["📊 Pydantic Models"]
@@ -347,78 +347,4 @@ graph TB
     class COBOL_MODELS,JAVA_MODELS,SCHEMA_MODELS modelStyle
     class FILE_MANAGER,LOGGING_SERVICE,REPORT_SERVICE serviceStyle
     class JAVA_OUTPUT,REPORTS_OUTPUT,DIAGRAMS_OUTPUT outputStyle
-```
-
-### 🎯 Original C# Multi-Agent Architecture
-
-Based on the Microsoft's original implementation, here's how the three specialized agents are orchestrated:
-
-```mermaid
-graph TB
-    subgraph USER_INPUT ["👤 User Input"]
-        COBOL_FILES["📁 COBOL Files<br/>(.cbl, .cpy)"]
-        CONFIG["⚙️ Configuration<br/>(ai-config.local.env)"]
-    end
-    
-    subgraph SEMANTIC_KERNEL ["🧠 Semantic Kernel Framework"]
-        KERNEL_BUILDER["🔧 Kernel Builder<br/>• Azure OpenAI Connection<br/>• HTTP Client Setup<br/>• Model Configuration"]
-        MIGRATION_PROCESS["🎯 Migration Process<br/>• Agent Orchestration<br/>• Workflow Management<br/>• Progress Tracking"]
-    end
-    
-    subgraph AI_AGENTS ["🤖 Specialized AI Agents"]
-        COBOL_ANALYZER["🔍 CobolAnalyzerAgent<br/>• Structure Analysis<br/>• Variable Mapping<br/>• Logic Flow Detection<br/>• Copybook References"]
-        
-        JAVA_CONVERTER["☕ JavaConverterAgent<br/>• COBOL→Java Translation<br/>• Quarkus Integration<br/>• Best Practices<br/>• Error Handling"]
-        
-        DEPENDENCY_MAPPER["🗺️ DependencyMapperAgent<br/>• Relationship Analysis<br/>• Mermaid Diagrams<br/>• Usage Patterns<br/>• Metrics Calculation"]
-    end
-    
-    subgraph HELPER_SERVICES ["🛠️ Helper Services"]
-        FILE_HELPER["📁 FileHelper<br/>• Directory Scanning<br/>• File I/O Operations<br/>• Output Structure"]
-        
-        ENHANCED_LOGGER["📊 EnhancedLogger<br/>• API Call Tracking<br/>• Progress Monitoring<br/>• Cost Analysis"]
-        
-        CHAT_LOGGER["💬 ChatLogger<br/>• Conversation Recording<br/>• Markdown Export<br/>• JSON Statistics"]
-    end
-    
-    subgraph OUTPUT_ARTIFACTS ["📤 Output Artifacts"]
-        JAVA_FILES["☕ Java Files<br/>• Quarkus Services<br/>• Package Structure<br/>• Annotations"]
-        
-        REPORTS["📋 Reports<br/>• migration-report.md<br/>• dependency-map.json<br/>• conversation-log.md"]
-        
-        LOGS_DIR["📂 Logs Directory<br/>• API Calls<br/>• Performance Metrics<br/>• Error Tracking"]
-    end
-    
-    %% Flow Connections
-    USER_INPUT --> SEMANTIC_KERNEL
-    SEMANTIC_KERNEL --> AI_AGENTS
-    AI_AGENTS --> HELPER_SERVICES
-    HELPER_SERVICES --> OUTPUT_ARTIFACTS
-    
-    %% Detailed Agent Flow
-    MIGRATION_PROCESS --> COBOL_ANALYZER
-    COBOL_ANALYZER --> DEPENDENCY_MAPPER
-    DEPENDENCY_MAPPER --> JAVA_CONVERTER
-    
-    %% Helper Service Connections
-    COBOL_ANALYZER -.-> ENHANCED_LOGGER
-    JAVA_CONVERTER -.-> ENHANCED_LOGGER
-    DEPENDENCY_MAPPER -.-> ENHANCED_LOGGER
-    
-    COBOL_ANALYZER -.-> CHAT_LOGGER
-    JAVA_CONVERTER -.-> CHAT_LOGGER
-    DEPENDENCY_MAPPER -.-> CHAT_LOGGER
-    
-    %% Styling
-    classDef userStyle fill:#e3f2fd,stroke:#1976d2,stroke-width:2px,color:#0d47a1
-    classDef kernelStyle fill:#f1f8e9,stroke:#689f38,stroke-width:2px,color:#1b5e20
-    classDef agentStyle fill:#fff3e0,stroke:#f57c00,stroke-width:2px,color:#e65100
-    classDef helperStyle fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#4a148c
-    classDef outputStyle fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px,color:#1b5e20
-    
-    class COBOL_FILES,CONFIG userStyle
-    class KERNEL_BUILDER,MIGRATION_PROCESS kernelStyle
-    class COBOL_ANALYZER,JAVA_CONVERTER,DEPENDENCY_MAPPER agentStyle
-    class FILE_HELPER,ENHANCED_LOGGER,CHAT_LOGGER helperStyle
-    class JAVA_FILES,REPORTS,LOGS_DIR outputStyle
 ```
