@@ -65,7 +65,7 @@ While the original C# project offered a strong foundation, this Python version i
 |--------|----------------|------------|
 | AI Orchestration | `atomic-agents` framework | Semantic Kernel framework |
 | LLM Integration | ✅ Instructor + optimized prompts | ⚠️ Manual prompt engineering |
-| Token Tracking | ✅ Instructor hooks (93% auto) | ✅ EnhancedLogger + ChatLogger |
+| Token Tracking | ✅ Instructor hooks | ✅ EnhancedLogger + ChatLogger |
 | Schema Validation | ✅ Pydantic + retries | ⚠️ Manual response parsing |
 | Provider Support | ✅ Multi-provider via Instructor | ⚠️ Azure OpenAI focused |
 | Containerization | ✅ Docker-first | ✅ Dev Container + Docker |
@@ -253,7 +253,7 @@ python -m cobol_migration_agents.cli main   --cobol-source ./data/cobol-source  
 | ⏱️ **Speed** | Migration in minutes, not months |
 | 💸 **Cost** | Orders of magnitude lower than traditional manual rewrites |
 | 🔍 **Auditability** | Full AI trace and confidence logs |
-| 🧪 **Accuracy** | >90% correctness (enterprise-grade) with auto-review and auto-suggestions for human reviewer) |
+| 🧪 **Accuracy** | Enterprise-grade output with >95% correctness potential, supported by auto-review and AI-driven suggestions for human validation |
 | 🧱 **Scalability** | Agent-based architecture supports horizontal scale |
 | ⚙️ **Maintainability** | Modern, clean Java output with Javadoc |
 | 🔐 **Compliance** | Traceability from COBOL to Java |
@@ -286,7 +286,7 @@ The implementation showcases the potential of modern AI agentic applications to 
 
 This Python rewrite brings the power of modern AI frameworks to COBOL modernization. With structured orchestration, token-efficient performance, and fully observable AI agents, it turns a complex legacy transformation into a **repeatable, scalable, and cost-effective pipeline**.
 
-**🚀 Ready to modernize your mainframe? Start now with Docker or Python!**
+**🚀 Ready to modernize your mainframe? Start now with Docker and Python!**
 
 ---
 
