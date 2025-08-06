@@ -131,7 +131,7 @@ The containerized setup is optimized for:
 
 ## 🧠 Architecture Overview
 
-The framework is based on a modular **multi-agent architecture**, each agent specializing in one phase of the migration process.
+The framework is based on a modular **multi-agent architecture**, each agent specializing in one phase of the migration process. For a detailed technical diagram of the Python implementation, see the [Architecture Diagram in Appendix](#-python-implementation-architecture).
 
 ### 👇 Agent Responsibilities
 
