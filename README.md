@@ -68,26 +68,9 @@ This Python rewrite leverages **[Instructor](https://github.com/567-labs/instruc
 
 ### 🧩 Atomic Agents Framework Advantages
 
-Built on **[Atomic Agents](https://github.com/BrainBlend-AI/atomic-agents)**, which offers significant improvements over frameworks like LangChain and CrewAI:
+Built on **[Atomic Agents](https://github.com/BrainBlend-AI/atomic-agents)**, which offers significant improvements over frameworks like LangChain and CrewAI through its **IPO model** (Input-Process-Output) with Pydantic validation, **atomic components** with single responsibilities, and **transparent operations** without hidden abstractions.
 
-#### 🎯 **IPO Model (Input-Process-Output)**
-- **Input**: Pydantic data structure validation
-- **Process**: Pure agent and tool operations 
-- **Output**: Validated Pydantic output structures
-- **Result**: Crystal-clear data flow with no hidden abstractions
-
-#### ⚛️ **Atomicity & Single Responsibility**
-- **Modular Design**: Each agent has one clear responsibility
-- **Zero Dependencies**: Components can be mixed and matched freely
-- **Full Control**: No black-box operations - you control every step
-- **Easy Testing**: Atomic components are simple to test and debug
-
-#### 🔧 **Reduced Complexity**
-- **No Excessive Abstractions**: Simple, composable components
-- **Transparent Operations**: Everything is visible and customizable
-- **Developer-Friendly**: Focus on solving problems, not fighting the framework
-
-By combining modular AI agents with deep observability and automated hooks, this version offers a faster, more resilient, and more scalable modernization pipeline.
+This approach delivers a faster, more resilient, and scalable modernization pipeline with full developer control.
 
 ### Key Technical Improvements
 
