@@ -294,7 +294,7 @@ This Python rewrite brings the power of modern AI frameworks to COBOL modernizat
 
 ### 🎯 Original C# Multi-Agent Architecture
 
-Based on the Microsoft's original implementation, here's how the Semantic Kernel orchestrates the three specialized agents:
+Based on the Microsoft's original implementation, here's how the three specialized agents are orchestrated:
 
 ```mermaid
 graph TB
