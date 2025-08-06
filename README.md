@@ -1,6 +1,6 @@
 # 🐍 LegacyBridge OSS COBOL Migration Agents
 
-**AI-powered COBOL to Java (Quarkus) migration framework built on Python using [`atomic-agents`](https://github.com/BrainBlend-AI/atomic-agents) and [`Instructor`](https://github.com/567-labs/instructor) for seamless orchestration, structured validation, and automatic cost tracking.**
+**AI-powered COBOL to Java (Quarkus) migration framework built on Python using [`Atomic Agents`](https://github.com/BrainBlend-AI/atomic-agents) and [`Instructor`](https://github.com/567-labs/instructor) for seamless orchestration, structured validation, and automatic cost tracking.**
 
 > **What is Quarkus?** Quarkus is a modern, cloud-native Java framework optimized for Kubernetes and serverless environments. It delivers ultra-fast startup times, low memory footprint, and native compilation capabilities, making it ideal for microservices and enterprise applications. Our migration generates production-ready Quarkus code with proper annotations, dependency injection, and RESTful service structures.
 
@@ -12,7 +12,7 @@ This repository is a **modern Python rewrite** of the original Microsoft project
 
 **What's new in this version:**
 - Re-implemented from scratch using Python
-- Built on the cutting-edge [`atomic-agents`](https://github.com/BrainBlend-AI/atomic-agents) orchestration framework
+- Built on the cutting-edge [`Atomic Agents`](https://github.com/BrainBlend-AI/atomic-agents) orchestration framework
 - Uses [`Instructor`](https://github.com/567-labs/instructor) for structured LLM interactions and validation
 - Offers automatic **token and cost tracking** through instructor hooks
 - Fully containerized with Docker for simple, consistent deployment
@@ -63,7 +63,7 @@ While the original C# project offered a strong foundation, this Python version i
 
 | Benefit | Python Edition | C# Edition |
 |--------|----------------|------------|
-| AI Orchestration | `atomic-agents` framework | Semantic Kernel framework |
+| AI Orchestration | `Atomic Agents` framework | Semantic Kernel framework |
 | LLM Integration | ✅ Instructor + optimized prompts | ⚠️ Manual prompt engineering |
 | Token Tracking | ✅ Instructor hooks | ✅ EnhancedLogger + ChatLogger |
 | Schema Validation | ✅ Pydantic + retries | ⚠️ Manual response parsing |
