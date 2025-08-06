@@ -179,7 +179,7 @@ With **automatic Instructor hooks**, every AI call is traced and measured.
 ### Requirements
 
 - Python 3.12+
-- pip or poetry
+- pip
 
 ### Setup
 
