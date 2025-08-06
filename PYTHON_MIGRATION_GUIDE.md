@@ -110,6 +110,7 @@ Strong typing with Pydantic models:
 - Migration statistics and metrics
 - File mapping and recommendations
 
+
 ## Configuration System
 
 Uses Pydantic settings with environment variable support:

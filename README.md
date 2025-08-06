@@ -274,6 +274,81 @@ This Python rewrite brings the power of modern AI frameworks to COBOL modernizat
 
 ## 📖 Appendix
 
+### 🐍 Python Implementation Architecture
+
+This Python version implements a modern, modular architecture using Atomic Agents and Pydantic models:
+
+```mermaid
+graph TB
+    subgraph ORCHESTRATOR ["🎯 Migration Orchestrator"]
+        COORDINATOR["📋 MigrationOrchestrator<br/>• 6-Step Process<br/>• File Discovery<br/>• Workflow Management"]
+    end
+    
+    subgraph AI_AGENTS ["🤖 Atomic Agents"]
+        COBOL_AGENT["🔍 CobolAnalyzerAgent<br/>• Structure Analysis<br/>• Complexity Metrics<br/>• Business Logic Detection"]
+        
+        JAVA_AGENT["☕ JavaConverterAgent<br/>• COBOL→Java Conversion<br/>• Quarkus Annotations<br/>• Clean Code Generation"]
+        
+        DEPENDENCY_AGENT["🗺️ DependencyMapperAgent<br/>• Relationship Mapping<br/>• Mermaid Diagrams<br/>• Risk Assessment"]
+    end
+    
+    subgraph DATA_MODELS ["📊 Pydantic Models"]
+        COBOL_MODELS["📄 COBOL Models<br/>• CobolFile<br/>• CobolAnalysis<br/>• Complexity Metrics"]
+        
+        JAVA_MODELS["☕ Java Models<br/>• JavaFile<br/>• Quarkus Metadata<br/>• Class Structures"]
+        
+        SCHEMA_MODELS["🔗 Schema Models<br/>• Input/Output Schemas<br/>• Migration Schemas<br/>• DependencyMap"]
+    end
+    
+    subgraph SERVICES ["🛠️ Core Services"]
+        FILE_MANAGER["📁 FileManager<br/>• Async File Operations<br/>• Directory Organization<br/>• Backup & Validation"]
+        
+        LOGGING_SERVICE["📊 LoggingService<br/>• API Call Tracking<br/>• Conversation Logging<br/>• Cost Analysis"]
+        
+        REPORT_SERVICE["📋 ReportGenerator<br/>• Markdown Reports<br/>• Migration Statistics<br/>• Recommendations"]
+    end
+    
+    subgraph OUTPUT ["📤 Generated Artifacts"]
+        JAVA_OUTPUT["☕ Java Files<br/>• Quarkus Services<br/>• Package Structure<br/>• Annotations"]
+        
+        REPORTS_OUTPUT["📋 Reports<br/>• Migration Report<br/>• Conversation Logs<br/>• API Statistics"]
+        
+        DIAGRAMS_OUTPUT["🗺️ Diagrams<br/>• Dependency Maps<br/>• Mermaid Charts<br/>• Risk Analysis"]
+    end
+    
+    %% Main Flow
+    COORDINATOR --> AI_AGENTS
+    AI_AGENTS --> DATA_MODELS
+    DATA_MODELS --> SERVICES
+    SERVICES --> OUTPUT
+    
+    %% Detailed Connections
+    COORDINATOR -.-> FILE_MANAGER
+    COORDINATOR -.-> LOGGING_SERVICE
+    COORDINATOR -.-> REPORT_SERVICE
+    
+    COBOL_AGENT --> COBOL_MODELS
+    JAVA_AGENT --> JAVA_MODELS
+    DEPENDENCY_AGENT --> SCHEMA_MODELS
+    
+    FILE_MANAGER --> JAVA_OUTPUT
+    LOGGING_SERVICE --> REPORTS_OUTPUT
+    REPORT_SERVICE --> DIAGRAMS_OUTPUT
+    
+    %% Styling
+    classDef orchestratorStyle fill:#e3f2fd,stroke:#1976d2,stroke-width:3px,color:#0d47a1
+    classDef agentStyle fill:#fff3e0,stroke:#f57c00,stroke-width:3px,color:#e65100
+    classDef modelStyle fill:#f1f8e9,stroke:#689f38,stroke-width:3px,color:#1b5e20
+    classDef serviceStyle fill:#f3e5f5,stroke:#7b1fa2,stroke-width:3px,color:#4a148c
+    classDef outputStyle fill:#e8f5e8,stroke:#2e7d32,stroke-width:3px,color:#1b5e20
+    
+    class COORDINATOR orchestratorStyle
+    class COBOL_AGENT,JAVA_AGENT,DEPENDENCY_AGENT agentStyle
+    class COBOL_MODELS,JAVA_MODELS,SCHEMA_MODELS modelStyle
+    class FILE_MANAGER,LOGGING_SERVICE,REPORT_SERVICE serviceStyle
+    class JAVA_OUTPUT,REPORTS_OUTPUT,DIAGRAMS_OUTPUT outputStyle
+```
+
 ### 🎯 Original C# Multi-Agent Architecture
 
 Based on the Microsoft's original implementation, here's how the three specialized agents are orchestrated:
