@@ -1,0 +1,104 @@
+# Docker ignore file for COBOL Migration Agents
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Documentation (exclude README.md as it's needed)
+# *.md
+docs/
+!README.md
+
+# Test files
+tests/
+test_*/
+*_test.py
+pytest.ini
+.pytest_cache/
+
+# Coverage
+.coverage
+htmlcov/
+
+# MyPy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Development files
+.env.local
+.env.development
+local_test/
+scratch/
+dev_notes.md
+
+# Docker files (don't copy Docker files into Docker)
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# Project specific
+data/
+logs/
+*.log
+*.tmp
+*.temp
+.cache/
+
+# Backup files
+*.backup
+*.tar.gz
+
+# Poetry lock file (will be generated)
+# poetry.lock
+
+# Local configuration
+config/settings.local.env
+config/ai-config.local.env

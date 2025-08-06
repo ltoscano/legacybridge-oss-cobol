@@ -1,0 +1,50 @@
+[tool.poetry]
+name = "cobol-migration-agents"
+version = "0.1.0"
+description = "AI-powered COBOL to Java Quarkus migration using atomic-agents"
+authors = ["Your Name <your.email@example.com>"]
+readme = "README.md"
+packages = [{include = "cobol_migration_agents"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+atomic-agents = "^2.0.0"
+instructor = "^1.0.0"
+openai = "^1.0.0"
+pydantic = "^2.0.0"
+rich = "^13.0.0"
+typer = "^0.16.0"
+httpx = "^0.27.0"
+python-dotenv = "^1.0.0"
+aiofiles = "^23.0.0"
+pathlib = "*"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.0.0"
+pytest-asyncio = "^0.21.0"
+black = "^23.0.0"
+flake8 = "^6.0.0"
+mypy = "^1.0.0"
+
+[tool.poetry.scripts]
+cobol-migrate = "cobol_migration_agents.cli:main"
+cobol-migrate-conversation = "cobol_migration_agents.cli:conversation_command"
+cobol-migrate-setup = "cobol_migration_agents.cli:setup_command"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+target-version = ['py310']
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
