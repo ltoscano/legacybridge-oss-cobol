@@ -244,12 +244,6 @@ The modular architecture makes it easy to contribute:
 3. **Additional Services**: Create services for specific functionality
 4. **CLI Commands**: Add new commands to the CLI interface
 
-This project is open to contributions! We welcome:
-- New agent ideas
-- Enhanced AI prompts and schema validations
-- Better test coverage or integration scripts
-- Community feedback and testing
-
 ---
 
 ## 📄 License
