@@ -237,7 +237,18 @@ python -m cobol_migration_agents.cli main   --cobol-source ./data/cobol-source  
 
 ## 🤝 Contributing
 
-The modular architecture welcomes contributions: **extend BaseAgent** for new agents, **add Pydantic models** for data types, **create services** for functionality, or **enhance the CLI**. We welcome agent ideas, improved prompts, testing, and community feedback.
+The modular architecture makes it easy to contribute:
+
+1. **New Agents**: Extend BaseAgent for specialized analysis
+2. **Custom Models**: Add Pydantic models for new data types
+3. **Additional Services**: Create services for specific functionality
+4. **CLI Commands**: Add new commands to the CLI interface
+
+This project is open to contributions! We welcome:
+- New agent ideas
+- Enhanced AI prompts and schema validations
+- Better test coverage or integration scripts
+- Community feedback and testing
 
 ---
 
@@ -247,7 +258,7 @@ MIT License — same as the original C# version.
 
 ## ⚖️ Disclaimer
 
-This project is an **independent creation by [Lorenzo Toscano](https://it.linkedin.com/in/lorenzotoscano)**, developed entirely separate from any professional activities or organizational affiliations. This work serves as a **technical demonstration** of how agentic AI configurations can effectively accelerate reverse engineering and code migration processes.
+This repository is an **independent creation by [Lorenzo Toscano](https://it.linkedin.com/in/lorenzotoscano)**, developed entirely separate from any professional activities or organizational affiliations. This work serves as a **technical demonstration** of how agentic AI configurations can effectively accelerate reverse engineering and code migration processes.
 
 The implementation showcases the potential of modern AI agentic applications to transform complex legacy modernization challenges into streamlined, observable, and maintainable workflows. This project is intended for educational and research purposes, demonstrating best practices in AI-assisted software migration.
 
