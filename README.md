@@ -82,9 +82,9 @@ This Python rewrite leverages **[Instructor](https://github.com/567-labs/instruc
 - **🌐 Multi-Provider Support**: Easy switching between OpenAI, Azure OpenAI, Anthropic, and other providers
 - **⚡ Performance**: Structured responses eliminate manual parsing, improving speed and reliability
 
-### 🧩 AtomicAgents Framework Advantages
+### 🧩 Atomic Agents Framework Advantages
 
-Built on **[AtomicAgents](https://github.com/BrainBlend-AI/atomic-agents)**, this implementation offers significant improvements over traditional frameworks like LangChain and CrewAI:
+Built on **[Atomic Agents](https://github.com/BrainBlend-AI/atomic-agents)**, which offers significant improvements over traditional frameworks like LangChain and CrewAI:
 
 #### 🎯 **IPO Model (Input-Process-Output)**
 - **Input**: Pydantic data structure validation
