@@ -293,7 +293,7 @@ def test_instructor_hooks_integration():
     
     # Show session statistics
     stats = logging_service.get_session_statistics()
-    print(f"\n📊 Session Statistics:")
+    print(f"\n📈 Session Statistics:")
     print(f"   Total API calls: {stats.get('api_calls', 0)}")
     print(f"   Total tokens: {stats.get('total_tokens', 0)}")
     print(f"   Total cost: ${stats.get('total_cost', 0):.4f}")
@@ -396,7 +396,7 @@ async def test_async_hooks_integration():
     # Export API statistics
     try:
         stats_file = await logging_service.export_api_statistics("./logs")
-        print(f"📊 API statistics exported to: {stats_file}")
+        print(f"📈 API statistics exported to: {stats_file}")
     except Exception as e:
         print(f"❌ Failed to export API statistics: {e}")
 

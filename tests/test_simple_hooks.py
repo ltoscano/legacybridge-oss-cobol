@@ -15,8 +15,8 @@ from dotenv import load_dotenv
 import os
 
 # Load environment variables
-load_dotenv(Path("config/settings.local.env"))
-load_dotenv(Path(".env"))
+load_dotenv(Path("../config/settings.local.env"))
+load_dotenv(Path("../.env"))
 
 class SimpleModel(BaseModel):
     message: str
