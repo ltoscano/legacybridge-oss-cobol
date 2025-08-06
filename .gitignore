@@ -22,6 +22,7 @@ share/python-wheels/
 *.egg
 MANIFEST
 CLAUDE.md
+readme.reserved.txt
 
 # Virtual environments
 .env
