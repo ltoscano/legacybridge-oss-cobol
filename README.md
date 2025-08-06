@@ -237,12 +237,7 @@ python -m cobol_migration_agents.cli main   --cobol-source ./data/cobol-source  
 
 ## 🤝 Contributing
 
-The modular architecture makes it easy to contribute:
-
-1. **New Agents**: Extend BaseAgent for specialized analysis
-2. **Custom Models**: Add Pydantic models for new data types
-3. **Additional Services**: Create services for specific functionality
-4. **CLI Commands**: Add new commands to the CLI interface
+The modular architecture welcomes contributions: **extend BaseAgent** for new agents, **add Pydantic models** for data types, **create services** for functionality, or **enhance the CLI**. We welcome agent ideas, improved prompts, testing, and community feedback.
 
 ---
 
