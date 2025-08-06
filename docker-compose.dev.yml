@@ -1,0 +1,17 @@
+# Docker Compose Development Override
+# This file adds development-specific volume mounts for hot reload
+
+services:
+  cobol-migration:
+    # Mount source code for development hot reload
+    volumes:
+      # Mount source code (enables hot reload during development)
+      - ./cobol_migration_agents:/app/cobol_migration_agents
+      - ./README.md:/app/README.md:ro
+      - ./pyproject.toml:/app/pyproject.toml:ro
+      - ./setup.py:/app/setup.py:ro
+      # Data volumes (inherited from base compose)
+      - ./data/cobol-source:/app/data/cobol-source
+      - ./data/java-output:/app/data/java-output
+      - ./data/logs:/app/data/logs
+      - ./config:/app/config:ro

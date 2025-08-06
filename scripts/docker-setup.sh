@@ -147,7 +147,7 @@ validate_config() {
     
     cd "$PROJECT_DIR"
     
-    if $COMPOSE_CMD run --rm cobol-migration cobol-migrate validate; then
+    if $COMPOSE_CMD run --rm cobol-migration python -m cobol_migration_agents.cli validate; then
         log_success "Configuration is valid"
     else
         log_error "Configuration validation failed"
@@ -244,7 +244,7 @@ run_migration() {
     
     cd "$PROJECT_DIR"
     
-    $COMPOSE_CMD run --rm cobol-migration cobol-migrate \
+    $COMPOSE_CMD run --rm cobol-migration python -m cobol_migration_agents.cli main \
         --cobol-source /app/data/cobol-source \
         --java-output /app/data/java-output \
         --verbose

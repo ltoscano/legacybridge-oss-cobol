@@ -30,13 +30,9 @@ console = Console()
 @app.command()
 def main(
     cobol_source: str = typer.Option(
-        ..., 
-        "--cobol-source", "-s",
         help="Path to the folder containing COBOL source files"
     ),
     java_output: str = typer.Option(
-        ...,
-        "--java-output", "-j", 
         help="Path to the folder for Java output files"
     ),
     config_file: Optional[str] = typer.Option(
@@ -78,7 +74,12 @@ def main(
             console.print("\n[yellow]💡 Run 'cobol-migrate-setup' to configure settings[/yellow]")
             raise typer.Exit(1)
         
-        # Override settings with command line arguments (convert to strings for typer 0.16.0 compatibility)
+        # Override settings with command line arguments
+        # Debug: Check if we're getting OptionInfo objects instead of values
+        if hasattr(cobol_source, 'default'):
+            console.print(f"[red]Debug: cobol_source is OptionInfo object: {cobol_source}[/red]")
+            raise ValueError("CLI parameter parsing error: received OptionInfo instead of value")
+        
         settings.application_settings.cobol_source_folder = str(cobol_source)
         settings.application_settings.java_output_folder = str(java_output)
         

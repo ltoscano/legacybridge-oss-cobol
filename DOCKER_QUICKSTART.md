@@ -1,98 +1,85 @@
 # 🐳 Docker Quick Start - COBOL Migration Agents
 
-Guida veloce per iniziare con la versione Docker del sistema.
+Quick guide to get started with the Docker version of the COBOL Migration system.
 
-## ⚡ Setup Ultra-Rapido
+## ⚡ Ultra-Fast Setup
 
 ```bash
-# 1. Setup automatico completo
+# 1. Complete automated setup
 ./scripts/docker-setup.sh setup
 
-# 2. Configura le credenziali AI (modifica .env)
+# 2. Configure AI credentials (edit .env)
 nano .env
 
-# 3. Test e migrazione
+# 3. Test and migrate
 ./scripts/docker-setup.sh validate
 ./scripts/docker-setup.sh samples
 ./scripts/docker-setup.sh migrate
 ```
 
-## 🔧 Problema Risolto
+## 🚀 docker-setup.sh Script Commands
 
-**❌ Errore originale:**
-```
-/app/cobol_migration_agents does not contain any element
-poetry install failed
-```
+The `docker-setup.sh` script provides all necessary Docker operations:
 
-**✅ Soluzione implementata:**
-- Nuovo `Dockerfile.pip` che usa pip invece di Poetry
-- `requirements.txt` per gestione dipendenze semplificata
-- `setup.py` per installazione package
-- `.dockerignore` ottimizzato
-- Scripts di setup automatico
-
-## 📁 File Docker Principali
-
-```
-cobol_migration_agents/
-├── Dockerfile.pip              ✅ Produzione (raccomandato)
-├── Dockerfile                  ⚙️  Multi-stage con Poetry (avanzato)
-├── Dockerfile.dev              🔧 Development
-├── docker-compose.yml          🚀 Orchestrazione
-├── docker-entrypoint.sh        📋 Entrypoint intelligente
-├── .env.example                🔑 Template configurazione
-├── requirements.txt            📦 Dipendenze pip
-├── setup.py                    ⚙️  Setup Python
-└── scripts/docker-setup.sh     🛠️  Automazione completa
-```
-
-## 🚀 Utilizzo
-
-### Comandi Base
+### Setup Commands
 
 ```bash
-# Build e start
-docker compose build
-docker compose up -d
+# Complete initial setup (directories, config, build)
+./scripts/docker-setup.sh setup
 
-# Migrazione diretta
-docker compose run --rm cobol-migration cobol-migrate \
-  --cobol-source /app/data/cobol-source \
-  --java-output /app/data/java-output
+# Build Docker images only
+./scripts/docker-setup.sh build
 
-# Setup interattivo
-docker compose run --rm cobol-migration cobol-migrate-setup
+# Validate configuration
+./scripts/docker-setup.sh validate
 
-# Shell per debug
-docker compose run --rm cobol-migration bash
+# Run system diagnostics
+./scripts/docker-setup.sh doctor
 ```
 
-### Script Helper (Raccomandato)
+### Migration Commands
 
 ```bash
-./scripts/docker-setup.sh setup      # Setup completo
-./scripts/docker-setup.sh build      # Solo build
-./scripts/docker-setup.sh validate   # Test config
-./scripts/docker-setup.sh doctor     # Diagnostica
-./scripts/docker-setup.sh samples    # File test
-./scripts/docker-setup.sh migrate    # Migrazione
-./scripts/docker-setup.sh shell      # Shell interattiva
-./scripts/docker-setup.sh logs       # Log
-./scripts/docker-setup.sh clean      # Cleanup
+# Create sample COBOL files for testing
+./scripts/docker-setup.sh samples
+
+# Run test migration
+./scripts/docker-setup.sh migrate
 ```
 
-## ⚙️ Configurazione .env
+### Development Commands
+
+```bash
+# Open interactive shell in container
+./scripts/docker-setup.sh shell
+
+# Show real-time logs
+./scripts/docker-setup.sh logs
+
+# Complete cleanup (containers, images, volumes)
+./scripts/docker-setup.sh clean
+```
+
+### Help
+
+```bash
+# Show all available commands
+./scripts/docker-setup.sh help
+```
+
+## ⚙️ Configuration
+
+### Quick .env Setup
 
 ```env
-# Azure OpenAI (raccomandato)
+# Azure OpenAI (recommended)
 AI_SERVICE_TYPE=AzureOpenAI
 AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/
 AZURE_OPENAI_API_KEY=your-api-key-here
 AZURE_OPENAI_DEPLOYMENT_NAME=gpt-4
 AZURE_OPENAI_MODEL_ID=gpt-4
 
-# Oppure OpenAI
+# Or OpenAI
 AI_SERVICE_TYPE=OpenAI
 AZURE_OPENAI_API_KEY=sk-your-openai-key-here
 AZURE_OPENAI_MODEL_ID=gpt-4
@@ -102,85 +89,26 @@ AZURE_OPENAI_MODEL_ID=gpt-4
 
 ```
 ./data/
-├── cobol-source/     # 📥 Input COBOL (mount read-only)
-├── java-output/      # 📤 Output Java (mount read-write)
-└── logs/            # 📋 System logs (mount read-write)
+├── cobol-source/     # 📥 Input COBOL files
+├── java-output/      # 📤 Generated Java files
+└── logs/            # 📋 System logs
 
 ./config/
-├── settings.local.env  # 🔧 Local config
-└── settings.env.example  # 📋 Template
+├── settings.local.env  # 🔧 Local configuration
+└── settings.env.example  # 📋 Configuration template
 ```
 
-## 🔍 Verifiche
+## 🎯 Complete Example Workflow
 
 ```bash
-# Verifica build
-docker images | grep cobol-migration
-
-# Test import
-docker compose run --rm cobol-migration python -c "import cobol_migration_agents; print('OK')"
-
-# Test comandi CLI
-docker compose run --rm cobol-migration cobol-migrate --help
-
-# Verifica configurazione
-docker compose run --rm cobol-migration cobol-migrate validate
-```
-
-## 🛟 Troubleshooting
-
-### Build Fallisce
-```bash
-# Cleanup e rebuild
-docker system prune -af
-./scripts/docker-setup.sh build
-```
-
-### Permessi
-```bash
-# Fix permessi data
-sudo chown -R $USER:$USER data/
-chmod -R 755 data/
-```
-
-### Configurazione
-```bash
-# Reset configurazione
-rm .env
-cp .env.example .env
-# Modifica .env con le tue credenziali
-```
-
-### Debug
-```bash
-# Log dettagliati
-docker compose logs -f cobol-migration
-
-# Shell per debug
-./scripts/docker-setup.sh shell
-
-# Test connettività
-docker compose run --rm cobol-migration ping google.com
-```
-
-## 📚 Documentazione Completa
-
-- `DOCKER_GUIDE.md` - Guida completa Docker
-- `DOCKER_TROUBLESHOOTING.md` - Risoluzione problemi
-- `README.md` - Documentazione progetto
-- `PYTHON_MIGRATION_GUIDE.md` - Guida conversione da C#
-
-## 🎯 Esempio Completo
-
-```bash
-# Setup completo in 5 minuti
+# Setup in 5 minutes
 git clone <repository>
 cd cobol_migration_agents
 
-# 1. Setup automatico
+# 1. Automated setup
 ./scripts/docker-setup.sh setup
 
-# 2. Configura credenziali (sostituisci con i tuoi valori)
+# 2. Configure credentials (replace with your values)
 cat > .env << EOF
 AI_SERVICE_TYPE=AzureOpenAI
 AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/
@@ -189,24 +117,111 @@ AZURE_OPENAI_DEPLOYMENT_NAME=gpt-4
 AZURE_OPENAI_MODEL_ID=gpt-4
 EOF
 
-# 3. Valida e testa
+# 3. Validate and test
 ./scripts/docker-setup.sh validate
 ./scripts/docker-setup.sh samples
 ./scripts/docker-setup.sh migrate
 
-# 4. Controlla risultati
+# 4. Check results
 ls -la data/java-output/
 cat data/java-output/migration_report_*.md
 ```
 
-🎉 **Sistema pronto!** Il COBOL Migration Agents ora gira perfettamente in Docker con pieno supporto per:
+## 🐳 Docker Environment Types
 
-- ✅ Build ottimizzato e sicuro
-- ✅ Configurazione semplificata
-- ✅ Scripts di automazione
-- ✅ Debug e troubleshooting
-- ✅ Produzione-ready
+### Production (Default)
+```bash
+# Optimized for production
+docker compose up --build
+```
+
+### Development (Hot Reload)
+```bash
+# Development with source code mounting
+docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build
+```
+
+## 🔍 Verification Commands
+
+```bash
+# Verify Docker setup
+docker images | grep cobol-migration
+
+# Test Python import
+docker compose run --rm cobol-migration python -c "import cobol_migration_agents; print('OK')"
+
+# Test CLI commands
+docker compose run --rm cobol-migration python -m cobol_migration_agents.cli --help
+
+# Verify configuration
+./scripts/docker-setup.sh validate
+```
+
+## 🛟 Quick Troubleshooting
+
+### Build Issues
+```bash
+# Clean rebuild
+docker system prune -af
+./scripts/docker-setup.sh build
+```
+
+### Permissions
+```bash
+# Fix data directory permissions
+sudo chown -R $USER:$USER data/
+chmod -R 755 data/
+```
+
+### Configuration Issues
+```bash
+# Reset configuration
+rm .env
+cp .env.example .env
+# Edit .env with your credentials
+```
+
+### Debug
+```bash
+# Detailed logs
+docker compose logs -f cobol-migration
+
+# Interactive shell for debugging
+./scripts/docker-setup.sh shell
+
+# Test connectivity
+docker compose run --rm cobol-migration ping google.com
+```
+
+## 📊 Expected Output
+
+After successful migration, you'll see:
+
+```
+data/java-output/
+├── com/example/calc/
+│   ├── CalcStructures.java
+│   └── SimpleCalcService.java
+├── migration_report_migration_YYYYMMDD_HHMMSS.md
+└── conversation_log_migration_YYYYMMDD_HHMMSS.md
+```
+
+## 🚀 Next Steps
+
+1. **Add your COBOL files** to `data/cobol-source/`
+2. **Run migration** with `./scripts/docker-setup.sh migrate`
+3. **Review Java output** in `data/java-output/`
+4. **Check migration reports** for detailed analysis
+5. **Customize agents** for specific project needs
 
 ---
 
-*Per supporto: consulta DOCKER_TROUBLESHOOTING.md o apri un issue*
+🎉 **System ready!** COBOL Migration Agents now runs perfectly in Docker with:
+
+- ✅ Optimized and secure build
+- ✅ Simplified configuration
+- ✅ Automation scripts
+- ✅ Debug and troubleshooting tools
+- ✅ Production-ready deployment
+
+*For detailed documentation, see DOCKER_GUIDE.md*

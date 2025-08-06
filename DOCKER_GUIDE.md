@@ -1,20 +1,20 @@
 # Docker Guide - COBOL Migration Agents
 
-Questa guida spiega come utilizzare COBOL Migration Agents in container Docker per un deployment semplice e isolato.
+This guide explains how to use COBOL Migration Agents in Docker containers for simple and isolated deployment.
 
-## 🐳 Configurazione Docker
+## 🐳 Docker Configuration
 
-### Prerequisiti
+### Prerequisites
 
 - Docker 20.10+
-- Docker Compose 2.0+ (o docker-compose 1.29+)
-- 4GB+ RAM disponibile
-- 10GB+ spazio disco libero
+- Docker Compose 2.0+ (or docker-compose 1.29+)
+- 4GB+ available RAM
+- 10GB+ free disk space
 
-### Verifica Installazione Docker
+### Verify Docker Installation
 
 ```bash
-# Verifica Docker
+# Check Docker
 docker --version
 docker compose version
 
@@ -24,27 +24,27 @@ docker run hello-world
 
 ## 🚀 Quick Start
 
-### 1. Setup Automatico
+### 1. Automated Setup
 
 ```bash
-# Rendi eseguibile lo script di setup
+# Make setup script executable
 chmod +x scripts/docker-setup.sh
 
-# Esegui setup completo
+# Run complete setup
 ./scripts/docker-setup.sh setup
 ```
 
-### 2. Configurazione Manuale
+### 2. Manual Configuration
 
 ```bash
-# Crea file di configurazione
+# Create configuration file
 cp .env.example .env
 
-# Modifica con le tue credenziali AI
+# Edit with your AI credentials
 nano .env
 ```
 
-Esempio configurazione `.env`:
+Example `.env` configuration:
 
 ```env
 # Azure OpenAI
@@ -54,264 +54,265 @@ AZURE_OPENAI_API_KEY=your-api-key-here
 AZURE_OPENAI_DEPLOYMENT_NAME=gpt-4
 AZURE_OPENAI_MODEL_ID=gpt-4
 
-# Oppure OpenAI
+# Or OpenAI
 AI_SERVICE_TYPE=OpenAI
 AZURE_OPENAI_API_KEY=sk-your-openai-key-here
 AZURE_OPENAI_MODEL_ID=gpt-4
 ```
 
-### 3. Build e Start
+### 3. Build and Start
 
 ```bash
-# Build dell'immagine
+# Build the image
 docker compose build
 
-# Avvia il container
+# Start the container
 docker compose up -d
 
-# Verifica che sia running
+# Verify it's running
 docker compose ps
 ```
 
-## 📁 Struttura Directory
+## 📁 Directory Structure
 
-Il sistema Docker monta le seguenti directory:
+The Docker system mounts the following directories:
 
 ```
 ./data/
-├── cobol-source/     # File COBOL di input (mount read-only)
-├── java-output/      # File Java generati (mount read-write)
-└── logs/            # Log del sistema (mount read-write)
+├── cobol-source/     # Input COBOL files (read-only mount)
+├── java-output/      # Generated Java files (read-write mount)
+└── logs/            # System logs (read-write mount)
 
 ./config/
-├── settings.local.env  # Configurazione locale
-└── settings.env.example  # Template configurazione
+├── settings.local.env  # Local configuration
+└── settings.env.example  # Configuration template
 ```
 
-## 🛠️ Comandi Principali
+## 🐳 Docker Environments
 
-### Setup e Configurazione
+### Production Environment (Default)
+Optimized for production deployment with self-contained images:
 
 ```bash
-# Setup interattivo
-docker compose run --rm cobol-migration cobol-migrate-setup
+# Build and start production containers
+docker compose up --build
+```
 
-# Validazione configurazione
-docker compose run --rm cobol-migration cobol-migrate validate
+**Production Features:**
+- Self-contained images (no source code mounts)
+- Optimized performance (no file system overhead)
+- Secure deployment ready
+- Minimal attack surface
 
-# Diagnostica sistema
+### Development Environment  
+For development with hot reload capabilities:
+
+```bash
+# Build and start with development overrides
+docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build
+```
+
+**Development Features:**
+- **Hot Reload**: Source code changes reflected immediately
+- **Development Mounts**: Access to local files and scripts  
+- **Debug Configuration**: Enhanced logging and debugging
+- **Faster Iteration**: No container rebuild required for code changes
+
+## 🛠️ Main Commands
+
+### Setup and Configuration
+
+```bash
+# Interactive setup
+docker compose run --rm cobol-migration python -m cobol_migration_agents.cli setup
+
+# Configuration validation
+docker compose run --rm cobol-migration python -m cobol_migration_agents.cli validate
+
+# System diagnostics
 docker compose run --rm cobol-migration python scripts/doctor.py check
 ```
 
-### Migrazione COBOL
+### COBOL Migration
 
 ```bash
-# Migrazione base
-docker compose run --rm cobol-migration cobol-migrate \
+# Basic migration
+docker compose run --rm cobol-migration python -m cobol_migration_agents.cli main \
   --cobol-source /app/data/cobol-source \
   --java-output /app/data/java-output
 
-# Migrazione con verbose
-docker compose run --rm cobol-migration cobol-migrate \
+# Migration with verbose output
+docker compose run --rm cobol-migration python -m cobol_migration_agents.cli main \
   --cobol-source /app/data/cobol-source \
   --java-output /app/data/java-output \
   --verbose
 
-# Migrazione di una cartella specifica
-docker compose run --rm cobol-migration cobol-migrate \
+# Migration of specific folder
+docker compose run --rm cobol-migration python -m cobol_migration_agents.cli main \
   --cobol-source /app/data/cobol-source/legacy \
   --java-output /app/data/java-output/converted
 ```
 
-### Generazione Log e Report
+### Log and Report Generation
 
 ```bash
-# Genera conversation log
-docker compose run --rm cobol-migration cobol-migrate-conversation
+# Generate conversation log
+docker compose run --rm cobol-migration python -m cobol_migration_agents.cli conversation
 
-# Conversation log per sessione specifica
-docker compose run --rm cobol-migration cobol-migrate-conversation \
+# Conversation log for specific session
+docker compose run --rm cobol-migration python -m cobol_migration_agents.cli conversation \
   --session-id migration_20240101_120000
 
-# Conversation log con output personalizzato
-docker compose run --rm cobol-migration cobol-migrate-conversation \
+# Conversation log with custom output
+docker compose run --rm cobol-migration python -m cobol_migration_agents.cli conversation \
   --output /app/data/logs
 ```
 
-### Shell Interattiva
+### Interactive Shell
 
 ```bash
-# Apri shell nel container
+# Open shell in container
 docker compose run --rm cobol-migration bash
 
-# Apri shell con mount della directory corrente (development)
-docker compose run --rm cobol-migration-dev bash
+# Open shell with development mounts
+docker compose -f docker-compose.yml -f docker-compose.dev.yml run --rm cobol-migration bash
 ```
 
-## 🔧 Modalità di Utilizzo
+## 📝 Helper Script
 
-### 1. Modalità Produzione (Default)
-
-```bash
-# Container ottimizzato per produzione
-docker compose up cobol-migration
-```
-
-### 2. Modalità Development
+The `scripts/docker-setup.sh` script provides utility commands:
 
 ```bash
-# Container con tools di sviluppo
-docker compose --profile dev up cobol-migration-dev
-
-# Shell di sviluppo
-docker compose --profile dev run --rm cobol-migration-dev bash
-```
-
-### 3. Modalità Web Interface (Future)
-
-```bash
-# Web interface (quando implementata)
-docker compose --profile web up cobol-migration-web
-
-# Accesso via browser
-open http://localhost:8000
-```
-
-## 📝 Script Helper
-
-Lo script `scripts/docker-setup.sh` fornisce comandi di utilità:
-
-```bash
-# Comando completo di setup
+# Complete setup command
 ./scripts/docker-setup.sh setup
 
-# Solo build delle immagini
+# Build images only
 ./scripts/docker-setup.sh build
 
-# Validazione configurazione
+# Configuration validation
 ./scripts/docker-setup.sh validate
 
-# Diagnostica sistema
+# System diagnostics
 ./scripts/docker-setup.sh doctor
 
-# Creazione file COBOL di esempio
+# Create sample COBOL files
 ./scripts/docker-setup.sh samples
 
-# Test di migrazione
+# Test migration
 ./scripts/docker-setup.sh migrate
 
-# Shell interattiva
+# Interactive shell
 ./scripts/docker-setup.sh shell
 
-# Visualizza log
+# Show logs
 ./scripts/docker-setup.sh logs
 
-# Cleanup completo
+# Complete cleanup
 ./scripts/docker-setup.sh clean
 ```
 
-## 💡 Esempi di Utilizzo
+## 💡 Usage Examples
 
-### Migrazione Completa
+### Complete Migration
 
 ```bash
-# 1. Preparazione
+# 1. Preparation
 ./scripts/docker-setup.sh setup
 ./scripts/docker-setup.sh samples
 
-# 2. Configurazione (modifica .env con le tue credenziali)
+# 2. Configuration (edit .env with your credentials)
 nano .env
 
-# 3. Validazione
+# 3. Validation
 ./scripts/docker-setup.sh validate
 
-# 4. Migrazione
+# 4. Migration
 ./scripts/docker-setup.sh migrate
 
-# 5. Verifica risultati
+# 5. Check results
 ls -la data/java-output/
 cat data/java-output/migration_report_*.md
 ```
 
-### Migrazione di Progetto Esistente
+### Existing Project Migration
 
 ```bash
-# 1. Copia i tuoi file COBOL
+# 1. Copy your COBOL files
 cp -r /path/to/your/cobol/* ./data/cobol-source/
 
-# 2. Configura il sistema
+# 2. Configure the system
 ./scripts/docker-setup.sh validate
 
-# 3. Esegui migrazione
-docker compose run --rm cobol-migration cobol-migrate \
+# 3. Run migration
+docker compose run --rm cobol-migration python -m cobol_migration_agents.cli main \
   --cobol-source /app/data/cobol-source \
   --java-output /app/data/java-output \
   --verbose
 
-# 4. Verifica risultati
+# 4. Check results
 docker compose run --rm cobol-migration find /app/data/java-output -name "*.java"
 ```
 
-### Debug e Troubleshooting
+### Debug and Troubleshooting
 
 ```bash
-# Apri shell per debug
+# Open shell for debugging
 docker compose run --rm cobol-migration bash
 
-# Verifica configurazione
-cobol-migrate validate
+# Check configuration
+python -m cobol_migration_agents.cli validate
 
-# Test connettività AI service
+# Test AI service connectivity
 python -c "from cobol_migration_agents.config.settings import Settings; print(Settings.from_env().ai_settings)"
 
-# Controlla log dettagliati
+# Check detailed logs
 tail -f data/logs/*.log
 
-# Diagnostica completa
+# Complete diagnostics
 python scripts/doctor.py check
 ```
 
-## 🔍 Monitoring e Log
+## 🔍 Monitoring and Logs
 
-### Visualizzazione Log
+### Log Viewing
 
 ```bash
-# Log del container
+# Container logs
 docker compose logs -f cobol-migration
 
-# Log applicazione
+# Application logs
 tail -f data/logs/migration_*.log
 
-# Log conversation
+# Conversation logs
 cat data/logs/conversation_*.md
 ```
 
-### Metriche di Performance
+### Performance Metrics
 
 ```bash
-# Statistiche container
+# Container statistics
 docker stats cobol-migration
 
-# Utilizzo spazio disco
+# Disk usage
 du -sh data/
 
-# Informazioni dettagliate sul container
+# Detailed container information
 docker compose run --rm cobol-migration python scripts/doctor.py info
 ```
 
-## 🛡️ Sicurezza
+## 🛡️ Security
 
-### Gestione Credenziali
+### Credential Management
 
-- **Non committare mai** il file `.env` nel repository
-- Usa variabili d'ambiente del sistema per CI/CD
-- Considera l'uso di Docker secrets per produzione
+- **Never commit** the `.env` file to the repository
+- Use system environment variables for CI/CD
+- Consider using Docker secrets for production
 
-### Isolamento
+### Isolation
 
-- Il container gira con utente non-root (`appuser`)
-- Directory mount solo dove necessario
-- Network isolato per i container
+- Container runs with non-root user (`appuser`)
+- Directory mounts only where necessary
+- Isolated network for containers
 
 ### Backup
 
@@ -323,98 +324,98 @@ cp config/settings.local.env config/settings.local.env.backup
 # Backup data
 tar -czf backup_$(date +%Y%m%d).tar.gz data/
 
-# Backup immagini Docker
+# Backup Docker images
 docker save cobol-migration-agents:latest | gzip > cobol-migration-image.tar.gz
 ```
 
 ## 🔧 Troubleshooting
 
-### Problemi Comuni
+### Common Issues
 
-#### 1. Errore di Permission
+#### 1. Permission Error
 
 ```bash
-# Fix permessi
+# Fix permissions
 sudo chown -R $USER:$USER data/
 chmod -R 755 data/
 ```
 
-#### 2. Container non si avvia
+#### 2. Container won't start
 
 ```bash
-# Verifica log
+# Check logs
 docker compose logs cobol-migration
 
-# Rebuild immagine
+# Rebuild image
 docker compose build --no-cache cobol-migration
 ```
 
-#### 3. Configurazione non valida
+#### 3. Invalid configuration
 
 ```bash
-# Valida configurazione
-docker compose run --rm cobol-migration cobol-migrate validate
+# Validate configuration
+docker compose run --rm cobol-migration python -m cobol_migration_agents.cli validate
 
-# Reset configurazione
+# Reset configuration
 rm .env
 cp .env.example .env
 ```
 
-#### 4. Spazio disco insufficiente
+#### 4. Insufficient disk space
 
 ```bash
-# Cleanup Docker
+# Docker cleanup
 docker system prune -af
 
-# Rimuovi immagini non utilizzate
+# Remove unused images
 docker image prune -af
 
-# Cleanup completo progetto
+# Complete project cleanup
 ./scripts/docker-setup.sh clean
 ```
 
-### Debug Avanzato
+### Advanced Debug
 
 ```bash
-# Shell con debug mode
+# Shell with debug mode
 docker compose run --rm -e LOGGING_LEVEL=DEBUG cobol-migration bash
 
-# Accesso diretto al filesystem container
+# Direct filesystem access
 docker compose run --rm cobol-migration ls -la /app
 
-# Test connettività
+# Test connectivity
 docker compose run --rm cobol-migration ping google.com
 
-# Verifica variabili d'ambiente
+# Check environment variables
 docker compose run --rm cobol-migration env | grep AZURE
 ```
 
-## 🚀 Deploy in Produzione
+## 🚀 Production Deployment
 
 ### Docker Swarm
 
 ```bash
-# Inizializza swarm
+# Initialize swarm
 docker swarm init
 
 # Deploy stack
 docker stack deploy -c docker-compose.yml cobol-migration
 
-# Verifica servizi
+# Check services
 docker service ls
 ```
 
 ### Kubernetes (Helm)
 
 ```bash
-# Genera manifesti Kubernetes
-# (richiede configurazione aggiuntiva)
+# Generate Kubernetes manifests
+# (requires additional configuration)
 helm template cobol-migration ./k8s/helm-chart/
 ```
 
 ### CI/CD Pipeline
 
-Esempio GitHub Actions:
+Example GitHub Actions:
 
 ```yaml
 name: Build and Deploy
@@ -430,24 +431,24 @@ jobs:
       - name: Build Docker image
         run: docker build -t cobol-migration:${{ github.sha }} .
       - name: Test container
-        run: docker run --rm cobol-migration:${{ github.sha }} cobol-migrate --help
+        run: docker run --rm cobol-migration:${{ github.sha }} python -m cobol_migration_agents.cli --help
 ```
 
-## 📚 Risorse Aggiuntive
+## 📚 Additional Resources
 
 - [Docker Best Practices](https://docs.docker.com/develop/dev-best-practices/)
 - [Docker Compose Reference](https://docs.docker.com/compose/compose-file/)
 - [Container Security](https://docs.docker.com/engine/security/)
 
-## 🆘 Supporto
+## 🆘 Support
 
-Per problemi specifici a Docker:
+For Docker-specific issues:
 
-1. Controlla i log: `docker compose logs`
-2. Verifica la configurazione: `./scripts/docker-setup.sh validate`
-3. Esegui diagnostica: `./scripts/docker-setup.sh doctor`
-4. Consulta la documentazione del progetto principale
+1. Check logs: `docker compose logs`
+2. Verify configuration: `./scripts/docker-setup.sh validate`
+3. Run diagnostics: `./scripts/docker-setup.sh doctor`
+4. Consult the main project documentation
 
 ---
 
-*Guida Docker per COBOL Migration Agents - Versione container-ready del sistema di migrazione AI-powered*
+*Docker Guide for COBOL Migration Agents - Container-ready version of the AI-powered migration system*

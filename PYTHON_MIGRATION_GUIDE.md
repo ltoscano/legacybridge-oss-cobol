@@ -208,16 +208,11 @@ python scripts/doctor.py check
 # Clone and install
 git clone <repository>
 cd cobol_migration_agents
-poetry install
+pip install -e .
 
-# Run setup
-python scripts/setup.py
-
-# Configure
-cobol-migrate-setup
-
-# Validate
-cobol-migrate validate
+# Configure (manually edit settings)
+cp config/settings.env.example config/settings.local.env
+nano config/settings.local.env
 
 # Run migration
 cobol-migrate --cobol-source ./cobol-source --java-output ./java-output

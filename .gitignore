@@ -23,6 +23,7 @@ share/python-wheels/
 MANIFEST
 CLAUDE.md
 readme.reserved.txt
+data/
 
 # Virtual environments
 .env
