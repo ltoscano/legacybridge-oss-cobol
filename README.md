@@ -84,7 +84,7 @@ This Python rewrite leverages **[Instructor](https://github.com/567-labs/instruc
 
 ### 🧩 Atomic Agents Framework Advantages
 
-Built on **[Atomic Agents](https://github.com/BrainBlend-AI/atomic-agents)**, which offers significant improvements over traditional frameworks like LangChain and CrewAI:
+Built on **[Atomic Agents](https://github.com/BrainBlend-AI/atomic-agents)**, which offers significant improvements over frameworks like LangChain and CrewAI:
 
 #### 🎯 **IPO Model (Input-Process-Output)**
 - **Input**: Pydantic data structure validation
