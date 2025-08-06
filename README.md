@@ -10,12 +10,14 @@
 
 This repository is a **modern Python rewrite** of the original Microsoft project [Legacy Modernization Agents (C#)](https://github.com/Azure-Samples/Legacy-Modernization-Agents), which provided an AI-assisted approach to COBOL-to-Java migration using [Semantic Kernel](https://github.com/microsoft/semantic-kernel).
 
+The Python implementation leverages the Atomic Agents framework to provide a more modular, schema-driven approach to AI agent management while maintaining all the functionality of the original C# system.
+
 **What's new in this version:**
-- Re-implemented from scratch using Python
-- Built on the cutting-edge [`Atomic Agents`](https://github.com/BrainBlend-AI/atomic-agents) orchestration framework
-- Uses [`Instructor`](https://github.com/567-labs/instructor) for structured LLM interactions and validation
-- Offers automatic **token and cost tracking** through instructor hooks
-- Fully containerized with Docker for simple, consistent deployment
+- Built on [`Atomic Agents`](https://github.com/BrainBlend-AI/atomic-agents) for standardized AI orchestration
+- Uses [`Instructor`](https://github.com/567-labs/instructor) for structured LLM interactions with automatic validation
+- **Automatic token and cost tracking** through instructor hooks
+- **Docker-first** deployment with simplified setup
+- **Enhanced observability** with comprehensive logging and conversation tracking
 
 ---
 
@@ -86,6 +88,14 @@ Built on **[Atomic Agents](https://github.com/BrainBlend-AI/atomic-agents)**, wh
 - **Developer-Friendly**: Focus on solving problems, not fighting the framework
 
 By combining modular AI agents with deep observability and automated hooks, this version offers a faster, more resilient, and more scalable modernization pipeline.
+
+### Key Technical Improvements
+
+1. **Schema-Driven Architecture**: Pydantic models ensure strong typing and validation across all data flows
+2. **Asynchronous Processing**: Full async/await support for improved performance and scalability
+3. **Enhanced CLI Experience**: Rich interface with progress bars, styling, and interactive feedback
+4. **Service-Oriented Design**: Clear separation of concerns with modular, testable components
+5. **Automated Observability**: Built-in hooks capture token usage, costs, and conversation flows automatically
 
 ---
 
@@ -243,6 +253,13 @@ python -m cobol_migration_agents.cli main   --cobol-source ./data/cobol-source  
 ---
 
 ## 🤝 Contributing
+
+The modular architecture makes it easy to contribute:
+
+1. **New Agents**: Extend BaseAgent for specialized analysis
+2. **Custom Models**: Add Pydantic models for new data types
+3. **Additional Services**: Create services for specific functionality
+4. **CLI Commands**: Add new commands to the CLI interface
 
 This project is open to contributions! We welcome:
 - New agent ideas
