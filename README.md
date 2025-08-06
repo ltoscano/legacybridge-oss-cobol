@@ -170,15 +170,6 @@ With **automatic Instructor hooks**, every AI call is traced and measured.
 - Latency: per-agent performance
 - Hook efficiency: % of calls automatically captured
 
-### Sample Report
-
-```markdown
-Total API Calls: 15
-Hook-Captured Calls: 14 (93%)
-Total Tokens: 32,014
-Estimated Cost: $0.18
-```
-
 ---
 
 ## 🧪 Development Setup (Optional, without Docker)
