@@ -84,7 +84,7 @@ This Python rewrite leverages **[Instructor](https://github.com/567-labs/instruc
 
 ### 🧩 AtomicAgents Framework Advantages
 
-Built on **[AtomicAgents](https://github.com/BrainBlend-AI/atomic-agents)**, this implementation offers significant improvements over traditional frameworks like LangChain and CrewAI:
+Built on **AtomicAgents**, this implementation offers significant improvements over traditional frameworks like LangChain and CrewAI:
 
 #### 🎯 **IPO Model (Input-Process-Output)**
 - **Input**: Pydantic data structure validation
@@ -363,4 +363,5 @@ graph TB
     class KERNEL_BUILDER,MIGRATION_PROCESS kernelStyle
     class COBOL_ANALYZER,JAVA_CONVERTER,DEPENDENCY_MAPPER agentStyle
     class FILE_HELPER,ENHANCED_LOGGER,CHAT_LOGGER helperStyle
-    class J
+    class JAVA_FILES,REPORTS,LOGS_DIR outputStyle
+```
