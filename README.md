@@ -251,12 +251,12 @@ python -m cobol_migration_agents.cli main   --cobol-source ./data/cobol-source  
 | Feature | Value |
 |--------|-------|
 | ⏱️ **Speed** | Migration in minutes, not months |
-| 💸 **Cost** | $0.49 per file (vs $5K–15K for manual rewrite) |
+| 💸 **Cost** | Orders of magnitude lower than traditional manual rewrites |
 | 🔍 **Auditability** | Full AI trace and confidence logs |
-| 🧪 **Accuracy** | 97–99% correctness (enterprise-grade) |
+| 🧪 **Accuracy** | >90% correctness (enterprise-grade) with auto-review and auto-suggestions for human reviewer) |
 | 🧱 **Scalability** | Agent-based architecture supports horizontal scale |
 | ⚙️ **Maintainability** | Modern, clean Java output with Javadoc |
-| 🔐 **Compliance** | Traceability from COBOL to Java for every line |
+| 🔐 **Compliance** | Traceability from COBOL to Java |
 
 ---
 
