@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.pip
-    container_name: cobol-migration-agents
+    container_name: cobol-migration
     env_file:
       - .env
     environment:
@@ -17,7 +17,6 @@ services:
       - ./data/cobol-source:/app/data/cobol-source
       - ./data/java-output:/app/data/java-output
       - ./data/logs:/app/data/logs
-      - ./config:/app/config:ro
     working_dir: /app
     command: ["tail", "-f", "/dev/null"]  # Keep container running for interactive use
     networks:

@@ -116,6 +116,9 @@ nano .env
 ./scripts/docker-setup.sh validate
 ./scripts/docker-setup.sh samples
 ./scripts/docker-setup.sh migrate
+
+# Get help for all available commands
+./scripts/docker-setup.sh --help
 ```
 
 More information:

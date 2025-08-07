@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.pip
-    container_name: cobol-migration-agents
+    container_name: cobol-migration
     env_file:
       - .env
     environment:
@@ -22,37 +22,13 @@ services:
       - ./data/cobol-source:/app/data/cobol-source
       - ./data/java-output:/app/data/java-output
       - ./data/logs:/app/data/logs
-      - ./config:/app/config:ro
+      # Mount configuration files to speed up development
+      - ./config:/app/config
     working_dir: /app
     command: ["tail", "-f", "/dev/null"]  # Keep container running for interactive use
     networks:
       - cobol-migration-network
     restart: unless-stopped
-
-  # Development service with additional tools
-  cobol-migration-dev:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
-    container_name: cobol-migration-dev
-    env_file:
-      - .env
-    environment:
-      # Override paths for Docker container
-      - COBOL_SOURCE_FOLDER=/app/data/cobol-source
-      - JAVA_OUTPUT_FOLDER=/app/data/java-output
-      - LOGS_FOLDER=/app/data/logs
-    volumes:
-      - .:/app
-      - ./data:/app/data
-      - /app/.venv  # Anonymous volume for virtual environment
-    working_dir: /app
-    command: ["tail", "-f", "/dev/null"]
-    networks:
-      - cobol-migration-network
-    restart: unless-stopped
-    profiles:
-      - dev
 
   # # Web interface (future enhancement)
   # cobol-migration-web:
