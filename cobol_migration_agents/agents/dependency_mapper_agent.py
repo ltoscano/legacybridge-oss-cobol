@@ -77,7 +77,14 @@ class DependencyMapperAgent:
             )
             model = self.settings.ai_settings.deployment_name
         else:
-            openai_client = AsyncOpenAI(api_key=self.settings.ai_settings.api_key)
+            # For OpenAI, support custom base_url if endpoint is provided (for proxies, self-hosted, etc.)
+            if self.settings.ai_settings.endpoint:
+                openai_client = AsyncOpenAI(
+                    api_key=self.settings.ai_settings.api_key,
+                    base_url=self.settings.ai_settings.endpoint
+                )
+            else:
+                openai_client = AsyncOpenAI(api_key=self.settings.ai_settings.api_key)
             model = self.settings.ai_settings.model_id
         
         # Create instructor client with dynamic mode configuration

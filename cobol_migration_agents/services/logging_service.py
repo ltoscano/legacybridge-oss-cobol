@@ -89,8 +89,9 @@ class LoggingService:
         formatter = logging.Formatter(self.settings.logging_settings.format)
         file_handler.setFormatter(formatter)
         
-        # Add to logger
+        # Add to logger and set logger level
         self.logger.addHandler(file_handler)
+        self.logger.setLevel(getattr(logging, self.settings.logging_settings.level))
     
     def start_session(self, session_id: str) -> None:
         """
@@ -106,6 +107,7 @@ class LoggingService:
         self.performance_metrics.clear()
         
         self.logger.info(f"Started logging session: {session_id}")
+        self.logger.info(f"Logging configuration - Level: {self.settings.logging_settings.level}, File: {self.settings.logging_settings.enable_file_logging}, Console: {self.settings.logging_settings.enable_console_logging}")
     
     async def log_api_call(
         self,
