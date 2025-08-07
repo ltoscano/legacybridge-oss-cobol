@@ -19,8 +19,6 @@ The Python implementation leverages the Atomic Agents framework to provide a mor
 - **Docker-first** deployment with simplified setup
 - **Enhanced observability** with comprehensive logging and conversation tracking
 
----
-
 ### About the Original Microsoft Project
 
 The original [Legacy Modernization Agents](https://github.com/Azure-Samples/Legacy-Modernization-Agents) represents a pioneering Microsoft initiative that emerged from a strategic collaboration with Denmark's [Bankdata](https://www.bankdata.dk/). This groundbreaking project demonstrates how AI agents can revolutionize legacy COBOL modernization at enterprise scale.
@@ -72,13 +70,27 @@ Built on **[Atomic Agents](https://github.com/BrainBlend-AI/atomic-agents)**, wh
 
 This approach delivers a faster, more resilient, and scalable modernization pipeline with full developer control.
 
-### Key Technical Improvements
+### Technical Improvements
 
 1. **Schema-Driven Architecture**: Pydantic models ensure strong typing and validation across all data flows
 2. **Asynchronous Processing**: Full async/await support for improved performance and scalability
 3. **Enhanced CLI Experience**: Rich interface with progress bars, styling, and interactive feedback
 4. **Service-Oriented Design**: Clear separation of concerns with modular, testable components
 5. **Automated Observability**: Built-in hooks capture token usage, costs, and conversation flows automatically
+
+---
+
+## 💡 Why Use This Tool?
+
+| Feature | Value |
+|--------|-------|
+| ⏱️ **Speed** | Migration in minutes, not months |
+| 💸 **Cost** | Orders of magnitude lower than traditional manual rewrites |
+| 🔍 **Auditability** | Full AI trace and confidence logs |
+| 🧪 **Accuracy** | Enterprise-grade output with >95% correctness potential, supported by auto-review and AI-driven suggestions for human validation |
+| 🧱 **Scalability** | Agent-based architecture supports horizontal scale |
+| ⚙️ **Maintainability** | Modern, clean Java output with Javadoc |
+| 🔐 **Compliance** | Traceability from COBOL to Java |
 
 ---
 
@@ -214,20 +226,6 @@ python -m cobol_migration_agents.cli main   --cobol-source ./data/cobol-source  
 ```
 
 > 📋 **Configuration Help**: For detailed explanations of all configuration parameters, see [PARAMETERS.md](PARAMETERS.md)
-
----
-
-## 💡 Why Use This Tool?
-
-| Feature | Value |
-|--------|-------|
-| ⏱️ **Speed** | Migration in minutes, not months |
-| 💸 **Cost** | Orders of magnitude lower than traditional manual rewrites |
-| 🔍 **Auditability** | Full AI trace and confidence logs |
-| 🧪 **Accuracy** | Enterprise-grade output with >95% correctness potential, supported by auto-review and AI-driven suggestions for human validation |
-| 🧱 **Scalability** | Agent-based architecture supports horizontal scale |
-| ⚙️ **Maintainability** | Modern, clean Java output with Javadoc |
-| 🔐 **Compliance** | Traceability from COBOL to Java |
 
 ---
 
