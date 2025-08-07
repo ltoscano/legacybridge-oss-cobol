@@ -1,7 +1,5 @@
 """Java Converter Agent using atomic-agents framework."""
 
-import instructor
-import openai
 from openai import AsyncAzureOpenAI, AsyncOpenAI
 from typing import Optional
 from atomic_agents.context.chat_history import ChatHistory

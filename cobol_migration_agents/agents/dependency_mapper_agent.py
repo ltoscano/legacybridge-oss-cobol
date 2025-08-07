@@ -1,7 +1,5 @@
 """Dependency Mapper Agent using atomic-agents framework."""
 
-import instructor
-import openai
 from openai import AsyncAzureOpenAI, AsyncOpenAI
 from typing import Optional, List
 from atomic_agents.context.chat_history import ChatHistory
