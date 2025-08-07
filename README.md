@@ -330,7 +330,7 @@ graph TB
 
 ### What the Migration Produces
 
-**✅ Ready-to-Compile Quarkus Code:**
+**Ready-to-Compile Quarkus Code:**
 - Complete Java classes with proper Quarkus annotations (`@ApplicationScoped`, `@Entity`, `@Path`)
 - Dependency injection setup with CDI patterns
 - RESTful API structure with service/repository layers
@@ -346,63 +346,31 @@ graph TB
 
 ### Current Limitations
 
-**🔄 AI Model Limitations:**
+**AI Model Limitations:**
 - **Complex Business Logic**: Very intricate COBOL programs may require manual review
 - **Legacy Extensions**: Non-standard COBOL extensions might not be fully supported
 - **Performance Optimization**: Generated code may need tuning for high-performance scenarios
 
-**📊 Scope Limitations:**
+**Scope Limitations:**
 - **JCL Integration**: Job Control Language translation not included
 - **Database Specifics**: COBOL-DB2 specific optimizations need manual attention
 - **Screen Handling**: CICS/3270 screen logic requires additional conversion steps
 
-**🏗️ Infrastructure Gaps:**
+**Infrastructure Gaps:**
 - **CI/CD Pipelines**: Build and deployment automation not generated
 - **Monitoring Setup**: Observability configuration for production monitoring
 - **Security Configuration**: Authentication/authorization setup for enterprise deployment
 
-### Roadmap & Future Enhancements
-
-**🎯 Short Term (Next 3-6 months):**
-- **Unit Test Generation**: Automated test creation for converted Java code
-- **Build Configuration**: Auto-generate `pom.xml` with correct dependencies
-- **Enhanced COBOL Support**: Better handling of complex nested structures
-- **Performance Optimization**: AI-driven performance tuning suggestions
-
-**🚀 Medium Term (6-12 months):**
-- **JCL Converter Agent**: Job Control Language to Spring Batch/Quarkus Scheduler
-- **Database Migration Tools**: Schema conversion and data migration scripts
-- **CICS Integration**: Web service replacement for terminal-based applications
-- **Advanced Dependency Analysis**: Cross-system dependency mapping
-
-**🌟 Long Term (12+ months):**
-- **Multi-Language Support**: Python, .NET Core target languages
-- **Enterprise Integration**: SAP, Oracle, IBM mainframe connectors
-- **Visual Migration Designer**: GUI for migration planning and customization
-- **Real-time Migration**: Incremental, zero-downtime migration strategies
-
 ### Production Readiness Assessment
 
-**🟢 Production Ready:**
-- Core business logic conversion (95%+ accuracy demonstrated)
-- Quarkus microservice architecture
-- Comprehensive logging and monitoring
-- Docker containerization
-- Token usage optimization
+When assessing production readiness, consider that the conversion of core business logic is already production-grade, with demonstrated accuracy above 95%. The Quarkus microservices architecture, Docker containerization, advanced logging, and optimized token usage are all fully implemented. However, it is essential to carefully review sections involving complex mathematical calculations, performance-critical code paths, integrations with external systems, and security-sensitive operations. Manual handling is still required for environment-specific configurations, database connection setup, authentication and authorization implementation, as well as load testing and performance tuning activities.
 
-**🟡 Requires Review:**
-- Complex mathematical calculations
-- Performance-critical code paths
-- Integration with external systems
-- Security-sensitive operations
-
-**🔴 Manual Work Required:**
-- Environment-specific configurations
-- Database connection setup
-- Authentication/authorization implementation
-- Load testing and performance tuning
+For optimal results, carefully follow the instructions provided below. Please note that even steps not directly managed by this tool can be efficiently automated using solutions such as GitHub Copilot and similar technologies.
 
 ### Getting Production-Ready
+
+Copy your COBOL source files into the `data/cobol-source` directory within your cloned repository.  
+By default, the migration process uses the following folders: `data/cobol-source` for input, `data/java-output` for generated Java code, and `data/logs` for migration logs.
 
 **1. Code Review Process:**
 ```bash
@@ -430,3 +398,24 @@ cd data/java-output && mvn compile
 - **Production**: Implement full observability stack
 
 This framework provides a strong foundation for COBOL modernization while being transparent about what additional work may be needed for full production deployment.
+
+### Roadmap & Ideas for Future Enhancements
+
+Below are some potential enhancements. Note that advanced features are typically integrated into commercial AI solutions for migration and reverse engineering by specialized vendors.
+
+**Short Term:**
+- **Unit Test Generation**: Automated test creation for converted Java code
+- **Build Configuration**: Auto-generate `pom.xml` with correct dependencies
+- **Enhanced COBOL Support**: Better handling of complex nested structures
+- **Performance Optimization**: AI-driven performance tuning suggestions
+
+**Medium Term:**
+- **JCL Converter Agent**: Job Control Language to Spring Batch/Quarkus Scheduler
+- **Database Migration Tools**: Schema conversion and data migration scripts
+- **CICS Integration**: Web service replacement for terminal-based applications
+- **Advanced Dependency Analysis**: Cross-system dependency mapping
+
+**Long Term:**
+- **Enterprise Integration**: SAP, Oracle, IBM mainframe connectors
+- **Visual Migration Designer**: GUI for migration planning and customization
+- **Real-time Migration**: Incremental, zero-downtime migration strategies
