@@ -43,17 +43,6 @@ With **enterprise-validated results**, the system has demonstrated remarkable ef
 
 While the original C# project offered a strong foundation, this Python version introduces key innovations that dramatically improve **developer experience**, **observability**, **AI reliability**, and **deployment simplicity**:
 
-| Benefit | Python Edition | C# Edition |
-|--------|----------------|------------|
-| AI Orchestration | `Atomic Agents` framework | Semantic Kernel framework |
-| LLM Integration | ✅ Instructor + optimized prompts | ⚠️ Manual prompt engineering |
-| Token Tracking | ✅ Instructor hooks | ✅ EnhancedLogger + ChatLogger |
-| Schema Validation | ✅ Pydantic + retries | ⚠️ Manual response parsing |
-| Provider Support | ✅ Multi-provider via Instructor | ⚠️ Azure OpenAI focused |
-| Containerization | ✅ Docker-first | ✅ Dev Container + Docker |
-| Logging | ✅ Advanced w/ conversation logs | ✅ Advanced w/ structured logs |
-| Extensibility | ✅ Plugin-like agents | ⚠️ Hardcoded C# classes |
-
 ### Enhanced LLM Integration & Reliability
 
 This Python rewrite leverages **[Instructor](https://github.com/567-labs/instructor)** library for superior LLM interactions:
