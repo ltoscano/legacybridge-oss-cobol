@@ -76,13 +76,14 @@ The `docker-setup.sh` script provides all necessary Docker operations:
 AI_SERVICE_TYPE=AzureOpenAI
 AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/
 AZURE_OPENAI_API_KEY=your-api-key-here
-AZURE_OPENAI_DEPLOYMENT_NAME=gpt-4
-AZURE_OPENAI_MODEL_ID=gpt-4
+AZURE_OPENAI_DEPLOYMENT_NAME=gpt-4.1
+AZURE_OPENAI_MODEL_ID=gpt-4.1
+AZURE_OPENAI_API_VERSION=2025-04-01-preview
 
 # Or OpenAI
 AI_SERVICE_TYPE=OpenAI
 AZURE_OPENAI_API_KEY=sk-your-openai-key-here
-AZURE_OPENAI_MODEL_ID=gpt-4
+AZURE_OPENAI_MODEL_ID=gpt-4.1
 ```
 
 ## 📂 Directory Structure
@@ -113,8 +114,9 @@ cat > .env << EOF
 AI_SERVICE_TYPE=AzureOpenAI
 AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/
 AZURE_OPENAI_API_KEY=your-api-key-here
-AZURE_OPENAI_DEPLOYMENT_NAME=gpt-4
-AZURE_OPENAI_MODEL_ID=gpt-4
+AZURE_OPENAI_DEPLOYMENT_NAME=gpt-4.1
+AZURE_OPENAI_MODEL_ID=gpt-4.1
+AZURE_OPENAI_API_VERSION=2025-04-01-preview
 EOF
 
 # 3. Validate and test
