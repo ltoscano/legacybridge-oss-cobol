@@ -4,8 +4,6 @@
 
 > **What is Quarkus?** [Quarkus](https://quarkus.io/) is a fast, cloud-native Java framework for microservices, optimized for Kubernetes and serverless. It offers quick startup, low memory use, and native compilation. This migration produces ready-to-deploy Quarkus code with annotations, dependency injection, and RESTful APIs.
 
-> **[Update]** Locally tested with gpt-oss-120b and gpt-oss-20b — no complaints, only satisfied tokens.
-
 ---
 
 ## 🧭 About this Project
