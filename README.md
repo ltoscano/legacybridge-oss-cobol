@@ -78,9 +78,7 @@ This approach delivers a faster, more resilient, and scalable modernization pipe
 4. **Service-Oriented Design**: Clear separation of concerns with modular, testable components
 5. **Automated Observability**: Built-in hooks capture token usage, costs, and conversation flows automatically
 
----
-
-## 💡 Why Use This Tool?
+### Why Use This Tool?
 
 | Feature | Value |
 |--------|-------|
