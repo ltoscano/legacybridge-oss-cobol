@@ -18,6 +18,7 @@ services:
       - ./README.md:/app/README.md:ro
       - ./pyproject.toml:/app/pyproject.toml:ro
       - ./setup.py:/app/setup.py:ro
+      - ./tests:/app/tests:ro
       # Mount directories for persistent data
       - ./data/cobol-source:/app/data/cobol-source
       - ./data/java-output:/app/data/java-output
@@ -27,7 +28,8 @@ services:
     working_dir: /app
     command: ["tail", "-f", "/dev/null"]  # Keep container running for interactive use
     networks:
-      - cobol-migration-network
+      # - cobol-migration-network
+      - carl_default
     restart: unless-stopped
 
   # # Web interface (future enhancement)
@@ -58,9 +60,14 @@ services:
   #     - web
   #   command: ["python", "-m", "uvicorn", "cobol_migration_agents.web:app", "--host", "0.0.0.0", "--port", "8000"]
 
+# networks:
+#   cobol-migration-network:
+#     driver: bridge
+
 networks:
-  cobol-migration-network:
-    driver: bridge
+  carl_default:
+    external: true
+    name: carl_default
 
 volumes:
   cobol_data:
