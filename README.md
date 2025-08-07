@@ -71,13 +71,13 @@ This approach delivers a faster, more resilient, and scalable modernization pipe
 
 | Feature | Value |
 |--------|-------|
-| ⏱️ **Speed** | Migration in minutes, not months |
-| 💸 **Cost** | Orders of magnitude lower than traditional manual rewrites |
-| 🔍 **Auditability** | Full AI trace and confidence logs |
-| 🧪 **Accuracy** | Enterprise-grade output with >95% correctness potential, supported by AI-driven auto-review and suggestions to speed-up human validation |
-| 🧱 **Scalability** | Agent-based architecture supports horizontal scale |
-| ⚙️ **Maintainability** | Modern, clean Java output with Javadoc |
-| 🔐 **Compliance** | Traceability from COBOL to Java |
+| **Speed** | Migration in minutes, not months |
+| **Cost** | Orders of magnitude lower than traditional manual rewrites |
+| **Auditability** | Full AI trace and confidence logs |
+| **Accuracy** | Enterprise-grade output with >95% correctness potential, supported by AI-driven auto-review and suggestions to speed-up human validation |
+| **Scalability** | Agent-based architecture supports horizontal scale |
+| **Maintainability** | Modern, clean Java output with Javadoc |
+| **Compliance** | Traceability from COBOL to Java |
 
 ---
 
