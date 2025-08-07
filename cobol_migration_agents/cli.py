@@ -272,14 +272,14 @@ def setup_command() -> None:
             endpoint = typer.prompt("Azure OpenAI Endpoint (e.g., https://your-resource.openai.azure.com/)")
             api_key = typer.prompt("Azure OpenAI API Key", hide_input=True)
             api_version = typer.prompt("Azure OpenAI API Version (e.g., 2025-04-01-preview)")
-            deployment_name = typer.prompt("Deployment Name (e.g., gpt-4)")
-            model_id = typer.prompt("Model ID (e.g., gpt-4)", default="gpt-4")
+            deployment_name = typer.prompt("Deployment Name (e.g., gpt-4.1)")
+            model_id = typer.prompt("Model ID (e.g., gpt-4.1)", default="gpt-4.1")
         else:
             endpoint = ""
             api_key = typer.prompt("OpenAI API Key", hide_input=True)
             api_version = ""
             deployment_name = ""
-            model_id = typer.prompt("Model ID (e.g., gpt-4)", default="gpt-4")
+            model_id = typer.prompt("Model ID (e.g., gpt-4.1)", default="gpt-4.1")
         
         console.print("\n[cyan]Setting up application settings...[/cyan]")
         
@@ -335,9 +335,9 @@ COBOL_SOURCE_FOLDER={default_cobol_source}
 JAVA_OUTPUT_FOLDER={default_java_output}
 
 # Optional: Specialized models for different agents
-# AZURE_OPENAI_COBOL_ANALYZER_MODEL=gpt-4
-# AZURE_OPENAI_JAVA_CONVERTER_MODEL=gpt-4  
-# AZURE_OPENAI_DEPENDENCY_MAPPER_MODEL=gpt-4
+# AZURE_OPENAI_COBOL_ANALYZER_MODEL=gpt-4.1
+# AZURE_OPENAI_JAVA_CONVERTER_MODEL=gpt-4.1  
+# AZURE_OPENAI_DEPENDENCY_MAPPER_MODEL=gpt-4.1
 
 # Logging and Memory Settings
 LOGGING_LEVEL=INFO

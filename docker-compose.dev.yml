@@ -22,7 +22,7 @@ services:
       - ./data/cobol-source:/app/data/cobol-source
       - ./data/java-output:/app/data/java-output
       - ./data/logs:/app/data/logs
-      # Mount configuration files to speed up development
+      # Mount configuration files to speed up configuration
       - ./config:/app/config
     working_dir: /app
     command: ["tail", "-f", "/dev/null"]  # Keep container running for interactive use

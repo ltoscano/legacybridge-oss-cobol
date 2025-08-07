@@ -92,34 +92,62 @@ This approach delivers a faster, more resilient, and scalable modernization pipe
 
 ---
 
-## 🚀 Quick Start with Docker
+## Quick Startup
 
-**Docker is the recommended way to run COBOL Migration Agents.** It provides a self-contained environment with all dependencies pre-configured.
+### 1. Environment Preparation
+- Copy the example environment file and edit local settings:
+    ```sh
+    cp ./config/settings.env.example ./config/settings.local.env
+    nano ./config/settings.local.env
+    ```
 
-### 1. Install & Setup
+### 2. Initial Setup
+- Run the setup script to initialize Docker containers and validate the environment:
+    ```sh
+    ./scripts/docker-setup.sh setup
+    ```
+- Follow on-screen instructions to verify the setup and perform a test migration.
 
-```bash
-# Automated setup
-./scripts/docker-setup.sh setup
+### 3. Default Data Directories
+- COBOL source files: `./data/cobol-source`
+- Java output files: `./data/java-output`
+- Log files: `./data/logs`
 
-# Configure AI credentials (main configuration)
-cp config/settings.env.example config/settings.local.env
-nano config/settings.local.env
+### 4. Additional Commands
+- For further options, consult the help menu:
+    ```sh
+    ./scripts/docker-setup.sh --help
+    ```
 
-# Configure Docker-specific settings (optional)
-nano .env
-```
+### 5. Wizard-Based Setup
+- To configure the environment interactively, use:
+    ```sh
+    ./run.sh cobol-migrate-setup
+    ```
+- For a list of available commands:
+    ```sh
+    ./run.sh --help
+    ```
 
-### 2. Run the Migration
+### 6. Direct Docker Compose Usage
+- You may use Docker Compose commands directly as an alternative to `./run.sh`.
+    Example:
+    ```sh
+    ./run.sh cobol-migrate-setup
+    # is equivalent to:
+    docker-compose run --rm cobol-migration cobol-migrate-setup
+    ```
 
-```bash
-./scripts/docker-setup.sh validate
-./scripts/docker-setup.sh samples
-./scripts/docker-setup.sh migrate
+### 7. Common Docker Commands
 
-# Get help for all available commands
-./scripts/docker-setup.sh --help
-```
+| Command                    | Description                  | Example Usage                                             |
+|----------------------------|------------------------------|----------------------------------------------------------|
+| cobol-migrate              | Start migration              | `docker run cobol-migration cobol-migrate main --verbose`|
+| cobol-migrate-setup        | Interactive setup            | `docker run -it cobol-migration cobol-migrate-setup`     |
+| cobol-migrate-conversation | Generate conversation logs   | `docker run cobol-migration cobol-migrate-conversation`  |
+| bash/sh                    | Interactive shell            | `docker exec -it <container> bash`                       |
+| python                     | Run Python scripts           | `docker run cobol-migration python -m my_module`         |
+| (no command)               | Display help                 | `docker run cobol-migration cobol-migrate --help`        |
 
 More information:
 - 📘 [DOCKER_QUICKSTART.md](DOCKER_QUICKSTART.md)

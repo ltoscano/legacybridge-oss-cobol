@@ -27,7 +27,7 @@ flake8 = "^6.0.0"
 mypy = "^1.0.0"
 
 [tool.poetry.scripts]
-cobol-migrate = "cobol_migration_agents.cli:main"
+cobol-migrate = "cobol_migration_agents.cli:app"
 cobol-migrate-conversation = "cobol_migration_agents.cli:conversation_command"
 cobol-migrate-setup = "cobol_migration_agents.cli:setup_command"
 
