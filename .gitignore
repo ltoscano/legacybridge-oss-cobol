@@ -25,7 +25,7 @@ CLAUDE.md
 readme.reserved.txt
 data/
 PYTHON_MIGRATION_GUIDE.md
-dev-run-examples.py
+dev-run-example.py
 
 # Virtual environments
 .env
