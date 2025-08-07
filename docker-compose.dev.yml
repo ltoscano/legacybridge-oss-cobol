@@ -1,17 +1,114 @@
-# Docker Compose Development Override
-# This file adds development-specific volume mounts for hot reload
-
 services:
+  # Main COBOL Migration service
   cobol-migration:
-    # Mount source code for development hot reload
+    build:
+      context: .
+      dockerfile: Dockerfile.pip
+    container_name: cobol-migration-agents
+    environment:
+      # AI Service Configuration (override with your values)
+      - AI_SERVICE_TYPE=${AI_SERVICE_TYPE:-AzureOpenAI}
+      - AZURE_OPENAI_ENDPOINT=${AZURE_OPENAI_ENDPOINT}
+      - AZURE_OPENAI_API_KEY=${AZURE_OPENAI_API_KEY}
+      - AZURE_OPENAI_API_VERSION=${AZURE_OPENAI_API_VERSION}
+      - AZURE_OPENAI_DEPLOYMENT_NAME=${AZURE_OPENAI_DEPLOYMENT_NAME:-gpt-4.1}
+      - AZURE_OPENAI_MODEL_ID=${AZURE_OPENAI_MODEL_ID:-gpt-4.1}
+      
+      # Application Settings
+      - COBOL_SOURCE_FOLDER=/app/data/cobol-source
+      - JAVA_OUTPUT_FOLDER=/app/data/java-output
+      - LOGS_FOLDER=/app/data/logs
+      
+      # Processing Options
+      - MAX_FILES_PER_BATCH=${MAX_FILES_PER_BATCH:-10}
+      - ENABLE_PARALLEL_PROCESSING=${ENABLE_PARALLEL_PROCESSING:-true}
+      - BACKUP_ORIGINAL_FILES=${BACKUP_ORIGINAL_FILES:-true}
+      
+      # Logging Configuration
+      - LOGGING_LEVEL=${LOGGING_LEVEL:-INFO}
+      - ENABLE_CONVERSATION_LOGGING=${ENABLE_CONVERSATION_LOGGING:-true}
+      - LOG_API_CALLS=${LOG_API_CALLS:-true}
     volumes:
-      # Mount source code (enables hot reload during development)
+      # Mount source code for development (avoid rebuilds)
       - ./cobol_migration_agents:/app/cobol_migration_agents
       - ./README.md:/app/README.md:ro
       - ./pyproject.toml:/app/pyproject.toml:ro
       - ./setup.py:/app/setup.py:ro
-      # Data volumes (inherited from base compose)
+      # Mount directories for persistent data
       - ./data/cobol-source:/app/data/cobol-source
       - ./data/java-output:/app/data/java-output
       - ./data/logs:/app/data/logs
       - ./config:/app/config:ro
+    working_dir: /app
+    command: ["tail", "-f", "/dev/null"]  # Keep container running for interactive use
+    networks:
+      - cobol-migration-network
+    restart: unless-stopped
+
+  # Development service with additional tools
+  cobol-migration-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: cobol-migration-dev
+    environment:
+      - AI_SERVICE_TYPE=${AI_SERVICE_TYPE:-AzureOpenAI}
+      - AZURE_OPENAI_ENDPOINT=${AZURE_OPENAI_ENDPOINT}
+      - AZURE_OPENAI_API_KEY=${AZURE_OPENAI_API_KEY}
+      - AZURE_OPENAI_DEPLOYMENT_NAME=${AZURE_OPENAI_DEPLOYMENT_NAME:-gpt-4}
+      - AZURE_OPENAI_MODEL_ID=${AZURE_OPENAI_MODEL_ID:-gpt-4}
+      - COBOL_SOURCE_FOLDER=/app/data/cobol-source
+      - JAVA_OUTPUT_FOLDER=/app/data/java-output
+      - LOGS_FOLDER=/app/data/logs
+    volumes:
+      - .:/app
+      - ./data:/app/data
+      - /app/.venv  # Anonymous volume for virtual environment
+    working_dir: /app
+    command: ["tail", "-f", "/dev/null"]
+    networks:
+      - cobol-migration-network
+    restart: unless-stopped
+    profiles:
+      - dev
+
+  # # Web interface (future enhancement)
+  # cobol-migration-web:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.pip
+  #   container_name: cobol-migration-web
+  #   environment:
+  #     - AI_SERVICE_TYPE=${AI_SERVICE_TYPE:-AzureOpenAI}
+  #     - AZURE_OPENAI_ENDPOINT=${AZURE_OPENAI_ENDPOINT}
+  #     - AZURE_OPENAI_API_KEY=${AZURE_OPENAI_API_KEY}
+  #     - AZURE_OPENAI_DEPLOYMENT_NAME=${AZURE_OPENAI_DEPLOYMENT_NAME:-gpt-4}
+  #     - AZURE_OPENAI_MODEL_ID=${AZURE_OPENAI_MODEL_ID:-gpt-4}
+  #     - COBOL_SOURCE_FOLDER=/app/data/cobol-source
+  #     - JAVA_OUTPUT_FOLDER=/app/data/java-output
+  #     - LOGS_FOLDER=/app/data/logs
+  #   volumes:
+  #     # Mount source code for development (avoid rebuilds)
+  #     - ./cobol_migration_agents:/app/cobol_migration_agents
+  #     - ./README.md:/app/README.md:ro
+  #     - ./pyproject.toml:/app/pyproject.toml:ro
+  #     - ./setup.py:/app/setup.py:ro
+  #     # Mount directories for persistent data
+  #     - ./data:/app/data
+  #     - ./config:/app/config:ro
+  #   ports:
+  #     - "8000:8000"
+  #   networks:
+  #     - cobol-migration-network
+  #   restart: unless-stopped
+  #   profiles:
+  #     - web
+  #   command: ["python", "-m", "uvicorn", "cobol_migration_agents.web:app", "--host", "0.0.0.0", "--port", "8000"]
+
+networks:
+  cobol-migration-network:
+    driver: bridge
+
+volumes:
+  cobol_data:
+    driver: local
