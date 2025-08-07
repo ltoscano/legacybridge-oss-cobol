@@ -230,7 +230,7 @@ MIT License — same as the original C# version.
 
 This repository is an **independent creation by [Lorenzo Toscano](https://it.linkedin.com/in/lorenzotoscano)**, developed entirely separate from any professional activities or organizational affiliations. This work serves as a **technical demonstration** of how agentic AI configurations can effectively accelerate reverse engineering and code migration processes.
 
-The implementation showcases the potential of modern AI agentic applications to transform complex legacy modernization challenges into streamlined, observable, and maintainable workflows. This project is intended for educational and research purposes, demonstrating best practices in AI-assisted software migration.
+This project is intended for educational and research purposes, showcasing best practices in AI-assisted software migration. If you plan to use it in production environments, it is strongly recommended to seek guidance from qualified and experienced professionals.
 
 ---
 
