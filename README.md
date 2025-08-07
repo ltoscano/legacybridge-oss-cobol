@@ -92,7 +92,10 @@ This approach delivers a faster, more resilient, and scalable modernization pipe
 # Automated setup
 ./scripts/docker-setup.sh setup
 
-# Configure AI credentials
+# Configure AI credentials (main configuration)
+nano config/settings.local.env
+
+# Configure Docker-specific settings (optional)
 nano .env
 ```
 
@@ -107,6 +110,7 @@ nano .env
 More information:
 - 📘 [DOCKER_QUICKSTART.md](DOCKER_QUICKSTART.md)
 - 📘 [DOCKER_GUIDE.md](DOCKER_GUIDE.md)
+- 📋 [PARAMETERS.md](PARAMETERS.md) - Complete configuration reference
 
 ### 🔍 Docker Configuration Advantages
 
@@ -185,11 +189,15 @@ With **automatic Instructor hooks**, every AI call is traced and measured.
 
 ```bash
 pip install -e .
+
+# Copy template to create your local configuration
 cp config/settings.env.example config/settings.local.env
 nano config/settings.local.env
 
 python -m cobol_migration_agents.cli main   --cobol-source ./data/cobol-source   --java-output ./data/java-output
 ```
+
+> 📋 **Configuration Help**: For detailed explanations of all configuration parameters, see [PARAMETERS.md](PARAMETERS.md)
 
 ---
 

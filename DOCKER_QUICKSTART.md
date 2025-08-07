@@ -8,8 +8,8 @@ Quick guide to get started with the Docker version of the COBOL Migration system
 # 1. Complete automated setup
 ./scripts/docker-setup.sh setup
 
-# 2. Configure AI credentials (edit .env)
-nano .env
+# 2. Configure AI credentials (edit main config)
+nano config/settings.local.env
 
 # 3. Test and migrate
 ./scripts/docker-setup.sh validate
@@ -69,7 +69,14 @@ The `docker-setup.sh` script provides all necessary Docker operations:
 
 ## ⚙️ Configuration
 
-### Quick .env Setup
+### Main Configuration
+First copy the template to create your configuration:
+```bash
+cp config/settings.env.example config/settings.local.env
+nano config/settings.local.env
+```
+
+Example `config/settings.local.env`:
 
 ```env
 # Azure OpenAI (recommended)
@@ -80,11 +87,16 @@ AZURE_OPENAI_DEPLOYMENT_NAME=gpt-4.1
 AZURE_OPENAI_MODEL_ID=gpt-4.1
 AZURE_OPENAI_API_VERSION=2025-04-01-preview
 
+# Instructor Mode (optional)
+INSTRUCTOR_MODE=instructor.Mode.OPENROUTER_STRUCTURED_OUTPUTS
+
 # Or OpenAI
 AI_SERVICE_TYPE=OpenAI
 AZURE_OPENAI_API_KEY=sk-your-openai-key-here
 AZURE_OPENAI_MODEL_ID=gpt-4.1
 ```
+
+> 📋 **Need Help with Configuration?** See [PARAMETERS.md](PARAMETERS.md) for detailed explanations of all parameters.
 
 ## 📂 Directory Structure
 

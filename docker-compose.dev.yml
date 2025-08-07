@@ -5,29 +5,13 @@ services:
       context: .
       dockerfile: Dockerfile.pip
     container_name: cobol-migration-agents
+    env_file:
+      - .env
     environment:
-      # AI Service Configuration (override with your values)
-      - AI_SERVICE_TYPE=${AI_SERVICE_TYPE:-AzureOpenAI}
-      - AZURE_OPENAI_ENDPOINT=${AZURE_OPENAI_ENDPOINT}
-      - AZURE_OPENAI_API_KEY=${AZURE_OPENAI_API_KEY}
-      - AZURE_OPENAI_API_VERSION=${AZURE_OPENAI_API_VERSION}
-      - AZURE_OPENAI_DEPLOYMENT_NAME=${AZURE_OPENAI_DEPLOYMENT_NAME:-gpt-4.1}
-      - AZURE_OPENAI_MODEL_ID=${AZURE_OPENAI_MODEL_ID:-gpt-4.1}
-      
-      # Application Settings
+      # Override paths for Docker container
       - COBOL_SOURCE_FOLDER=/app/data/cobol-source
       - JAVA_OUTPUT_FOLDER=/app/data/java-output
       - LOGS_FOLDER=/app/data/logs
-      
-      # Processing Options
-      - MAX_FILES_PER_BATCH=${MAX_FILES_PER_BATCH:-10}
-      - ENABLE_PARALLEL_PROCESSING=${ENABLE_PARALLEL_PROCESSING:-true}
-      - BACKUP_ORIGINAL_FILES=${BACKUP_ORIGINAL_FILES:-true}
-      
-      # Logging Configuration
-      - LOGGING_LEVEL=${LOGGING_LEVEL:-INFO}
-      - ENABLE_CONVERSATION_LOGGING=${ENABLE_CONVERSATION_LOGGING:-true}
-      - LOG_API_CALLS=${LOG_API_CALLS:-true}
     volumes:
       # Mount source code for development (avoid rebuilds)
       - ./cobol_migration_agents:/app/cobol_migration_agents
@@ -51,12 +35,10 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     container_name: cobol-migration-dev
+    env_file:
+      - .env
     environment:
-      - AI_SERVICE_TYPE=${AI_SERVICE_TYPE:-AzureOpenAI}
-      - AZURE_OPENAI_ENDPOINT=${AZURE_OPENAI_ENDPOINT}
-      - AZURE_OPENAI_API_KEY=${AZURE_OPENAI_API_KEY}
-      - AZURE_OPENAI_DEPLOYMENT_NAME=${AZURE_OPENAI_DEPLOYMENT_NAME:-gpt-4}
-      - AZURE_OPENAI_MODEL_ID=${AZURE_OPENAI_MODEL_ID:-gpt-4}
+      # Override paths for Docker container
       - COBOL_SOURCE_FOLDER=/app/data/cobol-source
       - JAVA_OUTPUT_FOLDER=/app/data/java-output
       - LOGS_FOLDER=/app/data/logs
@@ -79,11 +61,6 @@ services:
   #     dockerfile: Dockerfile.pip
   #   container_name: cobol-migration-web
   #   environment:
-  #     - AI_SERVICE_TYPE=${AI_SERVICE_TYPE:-AzureOpenAI}
-  #     - AZURE_OPENAI_ENDPOINT=${AZURE_OPENAI_ENDPOINT}
-  #     - AZURE_OPENAI_API_KEY=${AZURE_OPENAI_API_KEY}
-  #     - AZURE_OPENAI_DEPLOYMENT_NAME=${AZURE_OPENAI_DEPLOYMENT_NAME:-gpt-4}
-  #     - AZURE_OPENAI_MODEL_ID=${AZURE_OPENAI_MODEL_ID:-gpt-4}
   #     - COBOL_SOURCE_FOLDER=/app/data/cobol-source
   #     - JAVA_OUTPUT_FOLDER=/app/data/java-output
   #     - LOGS_FOLDER=/app/data/logs

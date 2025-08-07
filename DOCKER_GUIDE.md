@@ -37,14 +37,18 @@ chmod +x scripts/docker-setup.sh
 ### 2. Manual Configuration
 
 ```bash
-# Create configuration file
-cp .env.example .env
+# Create main configuration file
+cp config/settings.env.example config/settings.local.env
 
 # Edit with your AI credentials
+nano config/settings.local.env
+
+# Optional: Create Docker-specific configuration
+cp .env.example .env
 nano .env
 ```
 
-Example `.env` configuration:
+Example `config/settings.local.env` configuration:
 
 ```env
 # Azure OpenAI
@@ -59,7 +63,20 @@ AZURE_OPENAI_API_VERSION=2025-04-01-preview
 AI_SERVICE_TYPE=OpenAI
 AZURE_OPENAI_API_KEY=sk-your-openai-key-here
 AZURE_OPENAI_MODEL_ID=gpt-4.1
+
+# Instructor Mode (optional)
+INSTRUCTOR_MODE=instructor.Mode.OPENROUTER_STRUCTURED_OUTPUTS
 ```
+
+Example `.env` configuration (Docker-specific):
+
+```env
+# Docker-specific settings
+TZ=UTC
+DEVELOPMENT_MODE=false
+```
+
+> 📋 **Complete Parameter Reference**: For detailed explanations of all configuration parameters, see [PARAMETERS.md](PARAMETERS.md)
 
 ### 3. Build and Start
 
@@ -85,8 +102,11 @@ The Docker system mounts the following directories:
 └── logs/            # System logs (read-write mount)
 
 ./config/
-├── settings.local.env  # Local configuration
-└── settings.env.example  # Configuration template
+├── settings.local.env    # Your local configuration (copy from template)
+└── settings.env.example # Configuration template (do not edit)
+
+./.env                    # Docker-specific settings (optional)
+./.env.example           # Docker template (do not edit)
 ```
 
 ## 🐳 Docker Environments

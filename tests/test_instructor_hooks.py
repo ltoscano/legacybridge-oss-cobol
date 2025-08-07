@@ -195,7 +195,9 @@ def test_instructor_hooks_integration():
         )
     
     # Create Instructor client with hooks
-    client = instructor.from_openai(openai_client)
+    # Create Instructor client with dynamic mode configuration
+    from cobol_migration_agents.config.instructor_config import create_instructor_client
+    client = create_instructor_client(openai_client, settings.ai_settings.instructor_mode)
     hooks_logger.setup_hooks(client)
     
     print("🧪 Testing Instructor hooks integration...")
@@ -329,7 +331,9 @@ async def test_async_hooks_integration():
             api_version=settings.ai_settings.api_version
         )
     
-    client = instructor.from_openai(openai_client)
+    # Create Instructor client with dynamic mode configuration
+    from cobol_migration_agents.config.instructor_config import create_instructor_client
+    client = create_instructor_client(openai_client, settings.ai_settings.instructor_mode)
     hooks_logger.setup_hooks(client)
     
     print("🔄 Testing async conversation logging...")

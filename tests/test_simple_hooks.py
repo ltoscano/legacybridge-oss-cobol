@@ -53,8 +53,10 @@ def inspect_hook_data():
             api_version=api_version
         )
     
-    # Create Instructor client
-    client = instructor.from_openai(openai_client)
+    # Create Instructor client with dynamic mode configuration
+    from cobol_migration_agents.config.instructor_config import create_instructor_client
+    instructor_mode = os.getenv("INSTRUCTOR_MODE")
+    client = create_instructor_client(openai_client, instructor_mode)
     
     print("\n" + "="*60)
     print("🔍 INSPECTOR: Setting up hooks to examine data...")

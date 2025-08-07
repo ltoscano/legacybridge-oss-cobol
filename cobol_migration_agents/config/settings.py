@@ -23,6 +23,9 @@ class AISettings(BaseModel):
     dependency_mapper_model_id: Optional[str] = Field(default=None, description="Model for dependency mapping")
     unit_test_model_id: Optional[str] = Field(default=None, description="Model for unit test generation")
     
+    # Instructor configuration
+    instructor_mode: Optional[str] = Field(default=None, description="Instructor mode (e.g., instructor.Mode.JSON)")
+    
     # API parameters
     max_tokens: int = Field(default=4000, description="Maximum tokens per request")
     temperature: float = Field(default=0.1, description="Temperature for response generation")
@@ -95,6 +98,7 @@ class Settings(BaseModel):
             java_converter_model_id=os.getenv("AZURE_OPENAI_JAVA_CONVERTER_MODEL"),
             dependency_mapper_model_id=os.getenv("AZURE_OPENAI_DEPENDENCY_MAPPER_MODEL"),
             unit_test_model_id=os.getenv("AZURE_OPENAI_UNIT_TEST_MODEL"),
+            instructor_mode=os.getenv("INSTRUCTOR_MODE"),
             max_tokens=int(os.getenv("AI_MAX_TOKENS", "4000")),
             temperature=float(os.getenv("AI_TEMPERATURE", "0.1")),
             timeout_seconds=int(os.getenv("AI_TIMEOUT_SECONDS", "600"))

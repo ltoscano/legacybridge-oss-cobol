@@ -9,6 +9,7 @@ from atomic_agents.context.system_prompt_generator import SystemPromptGenerator
 from atomic_agents.agents.atomic_agent import AtomicAgent, AgentConfig
 
 from ..config.settings import Settings
+from ..config.instructor_config import create_instructor_client
 from ..models.migration_schemas import ConversionInputSchema, ConversionOutputSchema
 from ..models.cobol_models import CobolFile, CobolAnalysis
 from ..models.java_models import JavaFile
@@ -71,19 +72,18 @@ class JavaConverterAgent:
         
         # Setup AI client based on configuration (async clients)
         if self.settings.ai_settings.service_type.lower() == "azureopenai":
-            client = instructor.from_openai(
-                AsyncAzureOpenAI(
-                    api_key=self.settings.ai_settings.api_key,
-                    api_version=self.settings.ai_settings.api_version,
-                    azure_endpoint=self.settings.ai_settings.endpoint
-                )
+            openai_client = AsyncAzureOpenAI(
+                api_key=self.settings.ai_settings.api_key,
+                api_version=self.settings.ai_settings.api_version,
+                azure_endpoint=self.settings.ai_settings.endpoint
             )
             model = self.settings.ai_settings.deployment_name
         else:
-            client = instructor.from_openai(
-                AsyncOpenAI(api_key=self.settings.ai_settings.api_key)
-            )
+            openai_client = AsyncOpenAI(api_key=self.settings.ai_settings.api_key)
             model = self.settings.ai_settings.model_id
+        
+        # Create instructor client with dynamic mode configuration
+        client = create_instructor_client(openai_client, self.settings.ai_settings.instructor_mode)
         
         # Store client reference for hook setup
         self.instructor_client = client
