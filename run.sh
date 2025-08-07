@@ -12,7 +12,9 @@ Usage: $0 [OPTIONS] [COMMAND]
 
 OPTIONS:
     --help          Show this help message
-    --dev           Use development configuration (docker-compose.dev.yml)
+    --dev           Use development configuration (docker-compose.dev.yml), 
+                    mainly useful when modifying source code and you want 
+                    to test changes before rebuilding
 
 EXAMPLES:
     $0 --help                                    # Show this help
@@ -21,7 +23,7 @@ EXAMPLES:
     $0 cobol-migrate main \\                     # Run migration
         --cobol-source /app/data/cobol-source \\
         --java-output /app/data/java-output --verbose
-    $0 --dev bash                               # Use dev config with shell
+    $0 --dev bash                               # Use dev config with shell 
 
 CONTAINER SERVICE:
     Uses '$DEFAULT_SERVICE' service automatically

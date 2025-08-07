@@ -463,9 +463,9 @@ class LoggingService:
         analyzer_messages = [m for m in messages_data if "analyzer" in m.agent_name.lower()]
         content.append(f"📁 **Files Analyzed**: {len(analyzer_messages)}")
         
-        # Count migration steps
-        migration_messages = [m for m in messages_data if m.metadata.get('operation', '').startswith('migration')]
-        content.append(f"🎯 **Migration Operations**: {len(migration_messages)}")
+        # Count conversion operations (actual COBOL->Java transformations)
+        conversion_messages = [m for m in messages_data if m.metadata.get('operation', '') in ['java_conversion_complete', 'conversion_complete']]
+        content.append(f"🎯 **Migration Operations**: {len(conversion_messages)}")
         
         # Error count
         error_count = len([call for call in api_calls_data if call.error])
