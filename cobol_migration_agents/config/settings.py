@@ -13,7 +13,7 @@ class AISettings(BaseModel):
     service_type: str = Field(default="AzureOpenAI", description="AI service provider")
     endpoint: Optional[str] = Field(default=None, description="Azure OpenAI endpoint")
     api_key: Optional[str] = Field(default=None, description="API key for authentication")
-    api_version: str = Field(default="2024-02-01", description="Azure OpenAI API version")
+    api_version: str = Field(default=None, description="Azure OpenAI API version")
     deployment_name: Optional[str] = Field(default=None, description="Azure OpenAI deployment name")
     model_id: str = Field(default="gpt-4", description="Model identifier")
     
