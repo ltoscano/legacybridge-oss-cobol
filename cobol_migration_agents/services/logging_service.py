@@ -279,6 +279,71 @@ class LoggingService:
         Returns:
             Markdown content
         """
+        # Load session data from autosave file if conversation_messages is empty
+        messages_to_use = self.conversation_messages
+        api_calls_to_use = self.api_calls
+        session_start = self.session_start_time
+        
+        if not messages_to_use:
+            # Try to load from autosave file
+            autosave_path = self.logs_dir / f"conversation_{session_id}_autosave.json"
+            # Also try alternative paths in case the file is in a different location
+            alt_paths = [
+                Path(f"/app/data/logs/conversation_{session_id}_autosave.json"),
+                Path(f"./data/logs/conversation_{session_id}_autosave.json"),
+                autosave_path
+            ]
+            
+            found_path = None
+            for path in alt_paths:
+                if path.exists():
+                    found_path = path
+                    break
+            
+            
+            if found_path:
+                try:
+                    import json
+                    async with aiofiles.open(found_path, 'r', encoding='utf-8') as f:
+                        data = json.loads(await f.read())
+                    
+                    # Load conversation messages
+                    messages_to_use = []
+                    for msg_data in data.get('conversation_messages', []):
+                        msg = ConversationMessage(
+                            timestamp=datetime.fromisoformat(msg_data['timestamp']),
+                            role=msg_data['role'],
+                            agent_name=msg_data['agent_name'],
+                            content=msg_data['content'],
+                            tokens=msg_data['tokens'],
+                            metadata=msg_data.get('metadata', {})
+                        )
+                        messages_to_use.append(msg)
+                    
+                    # Load API calls
+                    api_calls_to_use = []
+                    for call_data in data.get('api_calls', []):
+                        call = APICall(
+                            timestamp=datetime.fromisoformat(call_data['timestamp']),
+                            agent_name=call_data['agent_name'],
+                            model=call_data['model'],
+                            prompt_tokens=call_data['prompt_tokens'],
+                            completion_tokens=call_data['completion_tokens'],
+                            total_tokens=call_data['total_tokens'],
+                            duration_seconds=call_data['duration_seconds'],
+                            cost_estimate=call_data['cost_estimate'],
+                            request_id=call_data.get('request_id'),
+                            error=call_data.get('error')
+                        )
+                        api_calls_to_use.append(call)
+                    
+                    # Load session start time
+                    if 'session_start' in data:
+                        session_start = datetime.fromisoformat(data['session_start'])
+                        
+                except Exception as e:
+                    self.logger.warning(f"Failed to load autosave data: {e}")
+        
         content = [
             f"# 🤖 COBOL to Java Migration: Agent Conversation Log",
             f"## Session: {session_id}",
@@ -288,16 +353,16 @@ class LoggingService:
             ""
         ]
         
-        if self.session_start_time:
+        if session_start:
             content.extend([
                 "🎬 **MIGRATION SESSION STARTED**",
-                f"*{self.session_start_time.strftime('%H:%M:%S')}* - System initializing comprehensive logging...",
+                f"*{session_start.strftime('%H:%M:%S')}* - System initializing comprehensive logging...",
                 ""
             ])
         
         # Group messages by agent for narrative flow
         current_agent = ""
-        sorted_messages = sorted(self.conversation_messages, key=lambda m: m.timestamp)
+        sorted_messages = sorted(messages_to_use, key=lambda m: m.timestamp)
         
         for message in sorted_messages:
             agent_category = self._get_agent_category(message.agent_name)
@@ -331,7 +396,7 @@ class LoggingService:
             ""
         ])
         
-        self._add_session_summary(content)
+        self._add_session_summary(content, messages_to_use, api_calls_to_use, session_start)
         
         return "\n".join(content)
     
@@ -381,24 +446,29 @@ class LoggingService:
         if "migration_complexity" in metadata:
             content.append(f"   🎯 Complexity: {metadata['migration_complexity']}")
     
-    def _add_session_summary(self, content: List[str]) -> None:
+    def _add_session_summary(self, content: List[str], messages=None, api_calls=None, session_start=None) -> None:
         """Add session summary following C# pattern."""
-        if self.session_start_time:
-            duration = datetime.utcnow() - self.session_start_time
+        # Use provided data or fallback to instance data for backward compatibility
+        messages_data = messages if messages is not None else self.conversation_messages
+        api_calls_data = api_calls if api_calls is not None else self.api_calls
+        session_start_data = session_start if session_start is not None else self.session_start_time
+        
+        if session_start_data:
+            duration = datetime.utcnow() - session_start_data
             content.append(f"⏱️ **Session Duration**: {duration.total_seconds() / 60:.1f} minutes")
         
-        content.append(f"🔧 **Total AI Calls**: {len(self.api_calls)}")
+        content.append(f"🔧 **Total AI Calls**: {len(api_calls_data)}")
         
         # Count files analyzed
-        analyzer_messages = [m for m in self.conversation_messages if "analyzer" in m.agent_name.lower()]
+        analyzer_messages = [m for m in messages_data if "analyzer" in m.agent_name.lower()]
         content.append(f"📁 **Files Analyzed**: {len(analyzer_messages)}")
         
         # Count migration steps
-        migration_messages = [m for m in self.conversation_messages if m.metadata.get('operation', '').startswith('migration')]
+        migration_messages = [m for m in messages_data if m.metadata.get('operation', '').startswith('migration')]
         content.append(f"🎯 **Migration Operations**: {len(migration_messages)}")
         
         # Error count
-        error_count = len([call for call in self.api_calls if call.error])
+        error_count = len([call for call in api_calls_data if call.error])
         if error_count > 0:
             content.append(f"❌ **Errors Encountered**: {error_count}")
         else:
