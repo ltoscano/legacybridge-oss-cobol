@@ -21,15 +21,15 @@ The Python implementation leverages the Atomic Agents framework to provide a mor
 
 ---
 
-## 🏛️ About the Original Microsoft Project
+## About the Original Microsoft Project
 
 The original [Legacy Modernization Agents](https://github.com/Azure-Samples/Legacy-Modernization-Agents) represents a pioneering Microsoft initiative that emerged from a strategic collaboration with Denmark's [Bankdata](https://www.bankdata.dk/). This groundbreaking project demonstrates how AI agents can revolutionize legacy COBOL modernization at enterprise scale.
 
-### 🔧 Technical Foundation
+### Technical Foundation
 
 Built on Microsoft's **Semantic Kernel framework** with .NET 8.0, the system leverages **Process Functions** to orchestrate three specialized AI agents: CobolAnalyzer, JavaConverter, and DependencyMapper. The architecture is specifically optimized for **GPT-4.1 models** running at enterprise capacity (1M tokens/minute) and integrates seamlessly with **Azure OpenAI services**. Development is streamlined through Visual Studio Code Dev Containers, ensuring consistent environments across teams.
 
-### 🎯 Enterprise-Grade Design
+### Enterprise-Grade Design
 
 The project's **multi-agent architecture** embodies a clear separation of concerns, with each agent specializing in distinct phases of the migration pipeline. Configuration management follows enterprise patterns with a **dual-file system** (template + local credentials), while the included **`doctor.sh` CLI tool** provides comprehensive setup, validation, and migration management capabilities. This design philosophy prioritizes **observability, reliability, and scalability** for large-scale modernization initiatives.
 
@@ -56,17 +56,17 @@ While the original C# project offered a strong foundation, this Python version i
 | Logging | ✅ Advanced w/ conversation logs | ✅ Advanced w/ structured logs |
 | Extensibility | ✅ Plugin-like agents | ⚠️ Hardcoded C# classes |
 
-### 🚀 Enhanced LLM Integration & Reliability
+### Enhanced LLM Integration & Reliability
 
 This Python rewrite leverages **[Instructor](https://github.com/567-labs/instructor)** library for superior LLM interactions:
 
-- **📝 Optimized Prompts**: All agent prompts have been refined for better accuracy and consistency
-- **🛡️ Structured Communication**: Instructor enforces strict input/output schemas via Pydantic, reducing AI errors
-- **🔄 Automatic Retries**: Built-in retry logic with validation ensures robust responses
-- **🌐 Multi-Provider Support**: Easy switching between OpenAI, Azure OpenAI, Anthropic, and other providers
-- **⚡ Performance**: Structured responses eliminate manual parsing, improving speed and reliability
+- **Optimized Prompts**: All agent prompts have been refined for better accuracy and consistency
+- **Structured Communication**: Instructor enforces strict input/output schemas via Pydantic, reducing AI errors
+- **Automatic Retries**: Built-in retry logic with validation ensures robust responses
+- **Multi-Provider Support**: Easy switching between OpenAI, Azure OpenAI, Anthropic, and other providers
+- **Performance**: Structured responses eliminate manual parsing, improving speed and reliability
 
-### 🧩 Atomic Agents Framework Advantages
+### Atomic Agents Framework Advantages
 
 Built on **[Atomic Agents](https://github.com/BrainBlend-AI/atomic-agents)**, which offers significant improvements over frameworks like LangChain and CrewAI through its **IPO model** (Input-Process-Output) with Pydantic validation, **atomic components** with single responsibilities, and **transparent operations** without hidden abstractions.
 
@@ -86,20 +86,21 @@ This approach delivers a faster, more resilient, and scalable modernization pipe
 
 **Docker is the recommended way to run COBOL Migration Agents.** It provides a self-contained environment with all dependencies pre-configured.
 
-### 🔧 1. Install & Setup
+### 1. Install & Setup
 
 ```bash
 # Automated setup
 ./scripts/docker-setup.sh setup
 
 # Configure AI credentials (main configuration)
+cp config/settings.env.example config/settings.local.env
 nano config/settings.local.env
 
 # Configure Docker-specific settings (optional)
 nano .env
 ```
 
-### 🚀 2. Run the Migration
+### 2. Run the Migration
 
 ```bash
 ./scripts/docker-setup.sh validate
@@ -112,18 +113,18 @@ More information:
 - 📘 [DOCKER_GUIDE.md](DOCKER_GUIDE.md)
 - 📋 [PARAMETERS.md](PARAMETERS.md) - Complete configuration reference
 
-### 🔍 Docker Configuration Advantages
+### Docker Configuration Advantages
 
 Our Docker-first approach provides enterprise-grade benefits:
 
-1. **🔒 Isolation**: Consistent, reproducible environment across all platforms
-2. **📦 Portability**: Runs anywhere Docker is installed—development to production
-3. **🛡️ Security**: Secure containers with non-root user configuration
-4. **📈 Scalability**: Production-ready for horizontal scaling
-5. **⚡ Ease of Use**: Automated scripts handle all operations seamlessly
-6. **🐛 Debug Support**: Development mode with complete debugging tools
+1. **Isolation**: Consistent, reproducible environment across all platforms
+2. **Portability**: Runs anywhere Docker is installed—development to production
+3. **Security**: Secure containers with non-root user configuration
+4. **Scalability**: Production-ready for horizontal scaling
+5. **Ease of Use**: Automated scripts handle all operations seamlessly
+6. **Debug Support**: Development mode with complete debugging tools
 
-### 🚀 Production-Ready Deployment
+### Production-Ready Deployment
 
 The containerized setup is optimized for:
 - **Docker Swarm** for clustered deployments
@@ -137,7 +138,7 @@ The containerized setup is optimized for:
 
 The framework is based on a modular **multi-agent architecture**, each agent specializing in one phase of the migration process. For a detailed technical diagram of the Python implementation, see the [Architecture Diagram in Appendix](#-python-implementation-architecture).
 
-### 👇 Agent Responsibilities
+### Agent Responsibilities
 
 | Agent | Role |
 |-------|------|
@@ -147,7 +148,7 @@ The framework is based on a modular **multi-agent architecture**, each agent spe
 
 ---
 
-## 🔄 End-to-End Migration Process
+### End-to-End Migration Process
 
 ```mermaid
 graph TB
@@ -161,9 +162,7 @@ graph TB
     G -.-> B
 ```
 
----
-
-## 📊 AI Token & Cost Tracking
+### AI Token & Cost Tracking
 
 With **automatic Instructor hooks**, every AI call is traced and measured.
 
@@ -203,17 +202,17 @@ python -m cobol_migration_agents.cli main   --cobol-source ./data/cobol-source  
 
 ## 📁 Output Artifacts & Value
 
-### ✅ Migration Reports (`migration_report_*.md`)
+### Migration Reports (`migration_report_*.md`)
 - Conversion rate, token use, complexity score
 - AI performance per file and per agent
 - Code expansion ratio (COBOL → Java)
 
-### 💬 AI Conversation Logs (`conversation_log_*.md`)
+### AI Conversation Logs (`conversation_log_*.md`)
 - Timestamped reasoning by agents
 - Latency and confidence per file
 - Debugging and auditing visibility
 
-### ☕ Enterprise-Ready Java Code
+### Enterprise-Ready Java Code
 - Fully annotated Quarkus-compatible services
 - Type-safe, idiomatic Java code
 - Clean microservice structure, ready for REST APIs
@@ -236,18 +235,7 @@ python -m cobol_migration_agents.cli main   --cobol-source ./data/cobol-source  
 
 ## 🤝 Contributing
 
-The modular architecture makes it easy to contribute:
-
-1. **New Agents**: Extend BaseAgent for specialized analysis
-2. **Custom Models**: Add Pydantic models for new data types
-3. **Additional Services**: Create services for specific functionality
-4. **CLI Commands**: Add new commands to the CLI interface
-
-This project is open to contributions! We welcome:
-- New agent ideas
-- Enhanced AI prompts and schema validations
-- Better test coverage or integration scripts
-- Community feedback and testing
+The modular design makes it easy to add new agents, models, services, or CLI commands. Contributions are welcome—whether it's new agent types, improved prompts, better tests, or feedback from users.
 
 ---
 
@@ -255,7 +243,7 @@ This project is open to contributions! We welcome:
 
 MIT License — same as the original C# version.
 
-## ⚖️ Disclaimer
+### Disclaimer
 
 This repository is an **independent creation by [Lorenzo Toscano](https://it.linkedin.com/in/lorenzotoscano)**, developed entirely separate from any professional activities or organizational affiliations. This work serves as a **technical demonstration** of how agentic AI configurations can effectively accelerate reverse engineering and code migration processes.
 
@@ -263,17 +251,9 @@ The implementation showcases the potential of modern AI agentic applications to 
 
 ---
 
-## 🧭 Summary
-
-This Python rewrite brings the power of modern AI frameworks to COBOL modernization. With structured orchestration, token-efficient performance, and fully observable AI agents, it turns a complex legacy transformation into a **repeatable, scalable, and cost-effective pipeline**.
-
-**🚀 Ready to modernize your mainframe? Start now with Docker and Python!**
-
----
-
 ## 📖 Appendix
 
-### 🐍 Python Implementation Architecture
+### Python Implementation Architecture
 
 This Python version implements a modern, modular architecture using Atomic Agents and Pydantic models:
 
