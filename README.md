@@ -134,7 +134,7 @@ The containerized setup is optimized for:
 
 ---
 
-## 🧠 Architecture Overview
+## 🏗️ System Architecture & Key Features
 
 The framework is based on a modular **multi-agent architecture**, each agent specializing in one phase of the migration process. For a detailed technical diagram of the Python implementation, see the [Architecture Diagram in Appendix](#-python-implementation-architecture).
 
@@ -173,6 +173,23 @@ With **automatic Instructor hooks**, every AI call is traced and measured.
 - Latency: per-agent performance
 - Hook efficiency: % of calls automatically captured
 
+### Output Artifacts & Value
+
+#### Migration Reports (`migration_report_*.md`)
+- Conversion rate, token use, complexity score
+- AI performance per file and per agent
+- Code expansion ratio (COBOL → Java)
+
+#### AI Conversation Logs (`conversation_log_*.md`)
+- Timestamped reasoning by agents
+- Latency and confidence per file
+- Debugging and auditing visibility
+
+#### Enterprise-Ready Java Code
+- Fully annotated Quarkus-compatible services
+- Type-safe, idiomatic Java code
+- Clean microservice structure, ready for REST APIs
+
 ---
 
 ## 🧪 Development Setup (Optional, without Docker)
@@ -197,25 +214,6 @@ python -m cobol_migration_agents.cli main   --cobol-source ./data/cobol-source  
 ```
 
 > 📋 **Configuration Help**: For detailed explanations of all configuration parameters, see [PARAMETERS.md](PARAMETERS.md)
-
----
-
-## 📁 Output Artifacts & Value
-
-### Migration Reports (`migration_report_*.md`)
-- Conversion rate, token use, complexity score
-- AI performance per file and per agent
-- Code expansion ratio (COBOL → Java)
-
-### AI Conversation Logs (`conversation_log_*.md`)
-- Timestamped reasoning by agents
-- Latency and confidence per file
-- Debugging and auditing visibility
-
-### Enterprise-Ready Java Code
-- Fully annotated Quarkus-compatible services
-- Type-safe, idiomatic Java code
-- Clean microservice structure, ready for REST APIs
 
 ---
 
