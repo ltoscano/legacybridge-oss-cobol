@@ -110,7 +110,8 @@ class DependencyMapperAgent:
             system_prompt_generator=system_prompt_generator,
             model_api_parameters={
                 "max_tokens": self.settings.ai_settings.max_tokens,
-                "temperature": self.settings.ai_settings.temperature
+                "temperature": self.settings.ai_settings.temperature,
+                "top_p": self.settings.ai_settings.top_p
             }
         )
         

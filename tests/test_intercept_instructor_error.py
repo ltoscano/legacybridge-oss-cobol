@@ -2,12 +2,10 @@
 
 import asyncio
 import json
-#from openai import AsyncOpenAI
-from openai import AsyncAzureOpenAI as AsyncOpenAI
+from openai import AsyncOpenAI
 import instructor
 from cobol_migration_agents.config.settings import Settings
 from cobol_migration_agents.models.migration_schemas import DependencyOutputSchema
-
 
 async def test_intercept_instructor_error():
     """Intercept Instructor errors to see the raw response that's causing validation issues."""
