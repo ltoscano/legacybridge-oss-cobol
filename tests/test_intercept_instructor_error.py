@@ -78,6 +78,7 @@ Provide the dependency analysis."""
             ],
             max_tokens=settings.ai_settings.max_tokens,
             temperature=settings.ai_settings.temperature,
+            top_p=settings.ai_settings.top_p,
             max_retries=1  # Limit retries to see the first failure
         )
         
@@ -136,7 +137,8 @@ Provide the dependency analysis."""
                     {"role": "user", "content": user_prompt}
                 ],
                 max_tokens=settings.ai_settings.max_tokens,
-                temperature=settings.ai_settings.temperature
+                temperature=settings.ai_settings.temperature,
+                top_p=settings.ai_settings.top_p
             )
             
             raw_content = raw_response.choices[0].message.content

@@ -29,6 +29,7 @@ class AISettings(BaseModel):
     # API parameters
     max_tokens: int = Field(default=4000, description="Maximum tokens per request")
     temperature: float = Field(default=0.1, description="Temperature for response generation")
+    top_p: float = Field(default=1.0, description="Top-p sampling parameter")
     timeout_seconds: int = Field(default=600, description="Request timeout in seconds")
 
 
@@ -101,6 +102,7 @@ class Settings(BaseModel):
             instructor_mode=os.getenv("INSTRUCTOR_MODE"),
             max_tokens=int(os.getenv("AI_MAX_TOKENS", "4000")),
             temperature=float(os.getenv("AI_TEMPERATURE", "0.1")),
+            top_p=float(os.getenv("AI_TOP_P", "1.0")),
             timeout_seconds=int(os.getenv("AI_TIMEOUT_SECONDS", "600"))
         )
         

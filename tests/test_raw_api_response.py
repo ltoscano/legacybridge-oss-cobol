@@ -113,7 +113,8 @@ Return the complete dependency analysis as JSON."""
                 {"role": "user", "content": user_prompt}
             ],
             max_tokens=settings.ai_settings.max_tokens,
-            temperature=settings.ai_settings.temperature
+            temperature=settings.ai_settings.temperature,
+            top_p=settings.ai_settings.top_p
         )
         
         # Extract raw response
