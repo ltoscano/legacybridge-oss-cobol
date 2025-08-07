@@ -21,19 +21,19 @@ The Python implementation leverages the Atomic Agents framework to provide a mor
 
 ---
 
-## About the Original Microsoft Project
+### About the Original Microsoft Project
 
 The original [Legacy Modernization Agents](https://github.com/Azure-Samples/Legacy-Modernization-Agents) represents a pioneering Microsoft initiative that emerged from a strategic collaboration with Denmark's [Bankdata](https://www.bankdata.dk/). This groundbreaking project demonstrates how AI agents can revolutionize legacy COBOL modernization at enterprise scale.
 
-### Technical Foundation
+#### Technical Foundation
 
 Built on Microsoft's **Semantic Kernel framework** with .NET 8.0, the system leverages **Process Functions** to orchestrate three specialized AI agents: CobolAnalyzer, JavaConverter, and DependencyMapper. The architecture is specifically optimized for **GPT-4.1 models** running at enterprise capacity (1M tokens/minute) and integrates seamlessly with **Azure OpenAI services**. Development is streamlined through Visual Studio Code Dev Containers, ensuring consistent environments across teams.
 
-### Enterprise-Grade Design
+#### Enterprise-Grade Design
 
 The project's **multi-agent architecture** embodies a clear separation of concerns, with each agent specializing in distinct phases of the migration pipeline. Configuration management follows enterprise patterns with a **dual-file system** (template + local credentials), while the included **`doctor.sh` CLI tool** provides comprehensive setup, validation, and migration management capabilities. This design philosophy prioritizes **observability, reliability, and scalability** for large-scale modernization initiatives.
 
-### 🌟 Industry Impact & Proven Results
+#### Industry Impact & Proven Results
 
 As a **joint research initiative** between Microsoft's Global Black Belt team and Bankdata, this project has garnered significant industry attention through featured blog posts and conference presentations. The **open-source release** was strategically designed to engage the broader COBOL community, gathering real-world code samples to further refine the AI models. 
 
