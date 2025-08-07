@@ -126,18 +126,7 @@ This approach delivers a faster, more resilient, and scalable modernization pipe
     # is equivalent to:
     docker-compose run --rm cobol-migration cobol-migrate-setup
     ```
-
-### 7. Common Docker Commands
-
-| Command                    | Description                  | Example Usage                                             |
-|----------------------------|------------------------------|----------------------------------------------------------|
-| cobol-migrate              | Start migration              | `docker run cobol-migration cobol-migrate main --verbose`|
-| cobol-migrate-setup        | Interactive setup            | `docker run -it cobol-migration cobol-migrate-setup`     |
-| cobol-migrate-conversation | Generate conversation logs   | `docker run cobol-migration cobol-migrate-conversation`  |
-| bash/sh                    | Interactive shell            | `docker exec -it <container> bash`                       |
-| python                     | Run Python scripts           | `docker run cobol-migration python -m my_module`         |
-| (no command)               | Display help                 | `docker run cobol-migration cobol-migrate --help`        |
-
+    
 More information:
 - 📘 [DOCKER_QUICKSTART.md](DOCKER_QUICKSTART.md)
 - 📘 [DOCKER_GUIDE.md](DOCKER_GUIDE.md)
