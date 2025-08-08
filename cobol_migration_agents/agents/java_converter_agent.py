@@ -102,17 +102,13 @@ class JavaConverterAgent:
         if self.settings.ai_settings.java_converter_model_id:
             model = self.settings.ai_settings.java_converter_model_id
         
-        # Create agent configuration
+        # Create agent configuration with only specified API parameters
         config = AgentConfig(
             client=client,
             model=model,
             memory=memory,
             system_prompt_generator=system_prompt_generator,
-            model_api_parameters={
-                "max_tokens": self.settings.ai_settings.max_tokens,
-                "temperature": self.settings.ai_settings.temperature,
-                "top_p": self.settings.ai_settings.top_p
-            }
+            model_api_parameters=self.settings.ai_settings.get_model_api_parameters()
         )
         
         # Initialize the base agent with type parameters

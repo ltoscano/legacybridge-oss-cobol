@@ -26,11 +26,44 @@ class AISettings(BaseModel):
     # Instructor configuration
     instructor_mode: Optional[str] = Field(default=None, description="Instructor mode (e.g., instructor.Mode.JSON)")
     
-    # API parameters
-    max_tokens: int = Field(default=4000, description="Maximum tokens per request")
-    temperature: float = Field(default=0.1, description="Temperature for response generation")
-    top_p: float = Field(default=1.0, description="Top-p sampling parameter")
-    timeout_seconds: int = Field(default=600, description="Request timeout in seconds")
+    # API parameters - Optional, no defaults if not specified
+    max_tokens: Optional[int] = Field(default=None, description="Maximum tokens per request")
+    temperature: Optional[float] = Field(default=None, description="Temperature for response generation")
+    top_p: Optional[float] = Field(default=None, description="Top-p sampling parameter")
+    timeout_seconds: Optional[int] = Field(default=None, description="Request timeout in seconds")
+    max_retries_on_validation_error: int = Field(default=1, description="Max retries on Instructor validation errors")
+    
+    def get_model_api_parameters(self) -> dict:
+        """Get only the API parameters that are explicitly set (not None)."""
+        params = {}
+        
+        if self.max_tokens is not None:
+            params["max_tokens"] = self.max_tokens
+        if self.temperature is not None:
+            params["temperature"] = self.temperature
+        if self.top_p is not None:
+            params["top_p"] = self.top_p
+        if self.timeout_seconds is not None:
+            params["timeout"] = self.timeout_seconds
+        
+        # Always include max_retries as it has a default value
+        params["max_retries"] = self.max_retries_on_validation_error
+            
+        return params
+    
+    def get_active_parameters_summary(self) -> str:
+        """Get a summary of which AI parameters are active vs using defaults."""
+        active_params = self.get_model_api_parameters()
+        summary_lines = []
+        
+        summary_lines.append("AI Model Parameters:")
+        summary_lines.append(f"  max_tokens: {'✓ ' + str(self.max_tokens) if self.max_tokens is not None else '○ using model default'}")
+        summary_lines.append(f"  temperature: {'✓ ' + str(self.temperature) if self.temperature is not None else '○ using model default'}")
+        summary_lines.append(f"  top_p: {'✓ ' + str(self.top_p) if self.top_p is not None else '○ using model default'}")
+        summary_lines.append(f"  timeout: {'✓ ' + str(self.timeout_seconds) + 's' if self.timeout_seconds is not None else '○ using client default'}")
+        summary_lines.append(f"  max_retries: ✓ {self.max_retries_on_validation_error}")
+        
+        return "\n".join(summary_lines)
 
 
 class ApplicationSettings(BaseModel):
@@ -100,10 +133,12 @@ class Settings(BaseModel):
             dependency_mapper_model_id=os.getenv("AZURE_OPENAI_DEPENDENCY_MAPPER_MODEL"),
             unit_test_model_id=os.getenv("AZURE_OPENAI_UNIT_TEST_MODEL"),
             instructor_mode=os.getenv("INSTRUCTOR_MODE"),
-            max_tokens=int(os.getenv("AI_MAX_TOKENS", "4000")),
-            temperature=float(os.getenv("AI_TEMPERATURE", "0.1")),
-            top_p=float(os.getenv("AI_TOP_P", "1.0")),
-            timeout_seconds=int(os.getenv("AI_TIMEOUT_SECONDS", "600"))
+            # Only set AI parameters if they are explicitly provided in environment
+            max_tokens=int(os.getenv("AI_MAX_TOKENS")) if os.getenv("AI_MAX_TOKENS") else None,
+            temperature=float(os.getenv("AI_TEMPERATURE")) if os.getenv("AI_TEMPERATURE") else None,
+            top_p=float(os.getenv("AI_TOP_P")) if os.getenv("AI_TOP_P") else None,
+            timeout_seconds=int(os.getenv("AI_TIMEOUT_SECONDS")) if os.getenv("AI_TIMEOUT_SECONDS") else None,
+            max_retries_on_validation_error=int(os.getenv("INSTRUCTOR_MAX_RETRIES_ON_VALIDATION_ERROR", "1"))
         )
         
         application_settings = ApplicationSettings(

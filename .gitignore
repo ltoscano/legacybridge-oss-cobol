@@ -62,6 +62,7 @@ test-output/
 java-output/
 cobol-source/
 test_migration/
+tests/
 
 # Temporary files
 *.tmp

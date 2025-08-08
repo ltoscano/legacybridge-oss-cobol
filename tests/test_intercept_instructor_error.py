@@ -6,6 +6,8 @@ from openai import AsyncOpenAI
 import instructor
 from cobol_migration_agents.config.settings import Settings
 from cobol_migration_agents.models.migration_schemas import DependencyOutputSchema
+import json
+from typing import Union
 
 async def test_intercept_instructor_error():
     """Intercept Instructor errors to see the raw response that's causing validation issues."""
@@ -32,12 +34,47 @@ async def test_intercept_instructor_error():
     instructor_mode = instructor.Mode.TOOLS  # From your current config
     client = instructor.from_openai(openai_client, mode=instructor_mode)
     
+    # Hook per visualizzare il prompt completo inviato all'LLM
+    def debug_prompt(**kwargs):
+        print(f"\n{'='*80}")
+        print("PROMPT FINALE COMPLETO INVIATO ALL'LLM:")
+        print(f"{'='*80}")
+        
+        print(f"Model: {kwargs.get('model', 'unknown')}")
+        print(f"Max Tokens: {kwargs.get('max_tokens', 'unknown')}")
+        print(f"Temperature: {kwargs.get('temperature', 'unknown')}")
+        print(f"Top P: {kwargs.get('top_p', 'unknown')}")
+        
+        messages = kwargs.get('messages', [])
+        for i, msg in enumerate(messages):
+            print(f"\nMESSAGE {i+1} ({msg.get('role', 'unknown').upper()}):")
+            print(msg.get('content', ''))
+        
+        print(f"\n{'='*80}")
+        tools = kwargs.get('tools', [])
+        if tools:
+            print(f"\nSCHEMA/TOOLS:")
+            print(json.dumps(tools, indent=2))
+        
+        print(f"\n{'='*80}")
+        tool_choice = kwargs.get('tool_choice')
+        if tool_choice:
+            print(f"\nTOOL_CHOICE:")
+            print(json.dumps(tool_choice, indent=2))
+        
+        print(f"{'='*80}")
+    
+    client.on("completion:kwargs", debug_prompt)
+    
     # Simple prompt that should trigger the error
-    system_prompt = """You are a COBOL dependency analysis expert. 
+    system_prompt = """You are a COBOL dependency analysis expert.
 
-Analyze the provided COBOL files and return a complete dependency mapping.
+CRITICAL: You MUST call the DependencyOutputSchema function with a valid JSON object.
+DO NOT return JSON as a string. 
+DO NOT add any explanatory text.
+DO NOT wrap the response in markdown code blocks.
 
-Return a valid JSON response matching the DependencyOutputSchema structure."""
+Return ONLY the function call with the properly structured object."""
 
     user_prompt = """Analyze these COBOL files:
 
@@ -77,7 +114,7 @@ Provide the dependency analysis."""
             max_tokens=settings.ai_settings.max_tokens,
             temperature=settings.ai_settings.temperature,
             top_p=settings.ai_settings.top_p,
-            max_retries=1  # Limit retries to see the first failure
+            max_retries=2
         )
         
         print(f"\n=== Instructor Response Successful ===")
@@ -90,6 +127,7 @@ Provide the dependency analysis."""
         print(f"\n=== Instructor Error Caught ===")
         print(f"Error Type: {type(e).__name__}")
         print(f"Error Message: {str(e)}")
+        print(e)
         
         # Try to extract the raw response from the error
         if hasattr(e, 'raw_response'):
@@ -125,35 +163,35 @@ Provide the dependency analysis."""
                         end = min(len(raw_content), json_e.pos + 50)
                         print(f"'{raw_content[start:end]}'")
         
-        # Also try making a raw API call to compare
-        print(f"\n=== Making Raw API Call for Comparison ===")
-        try:
-            raw_response = await openai_client.chat.completions.create(
-                model=settings.ai_settings.model_id,
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_prompt}
-                ],
-                max_tokens=settings.ai_settings.max_tokens,
-                temperature=settings.ai_settings.temperature,
-                top_p=settings.ai_settings.top_p
-            )
+        # # Also try making a raw API call to compare
+        # print(f"\n=== Making Raw API Call for Comparison ===")
+        # try:
+        #     raw_response = await openai_client.chat.completions.create(
+        #         model=settings.ai_settings.model_id,
+        #         messages=[
+        #             {"role": "system", "content": system_prompt},
+        #             {"role": "user", "content": user_prompt}
+        #         ],
+        #         max_tokens=settings.ai_settings.max_tokens,
+        #         temperature=settings.ai_settings.temperature,
+        #         top_p=settings.ai_settings.top_p
+        #     )
             
-            raw_content = raw_response.choices[0].message.content
-            print(f"Raw API Content Length: {len(raw_content)}")
-            print(f"Raw API Content (first 1000 chars):")
-            print(raw_content[:1000])
+        #     raw_content = raw_response.choices[0].message.content
+        #     print(f"Raw API Content Length: {len(raw_content)}")
+        #     print(f"Raw API Content (first 1000 chars):")
+        #     print(raw_content[:1000])
             
-            # Check for specific patterns that cause validation errors
-            if 'call_graph' in raw_content:
-                print(f"🔍 Found 'call_graph' in raw response!")
-            if 'dependency_map' not in raw_content:
-                print(f"❌ Missing 'dependency_map' in raw response!")
-            if 'source_directory' not in raw_content:
-                print(f"❌ Missing 'source_directory' in raw response!")
+        #     # Check for specific patterns that cause validation errors
+        #     if 'call_graph' in raw_content:
+        #         print(f"🔍 Found 'call_graph' in raw response!")
+        #     if 'dependency_map' not in raw_content:
+        #         print(f"❌ Missing 'dependency_map' in raw response!")
+        #     if 'source_directory' not in raw_content:
+        #         print(f"❌ Missing 'source_directory' in raw response!")
                 
-        except Exception as raw_e:
-            print(f"Raw API call also failed: {raw_e}")
+        # except Exception as raw_e:
+        #     print(f"Raw API call also failed: {raw_e}")
         
         return None
 
@@ -219,9 +257,9 @@ if __name__ == "__main__":
     print("=== Test 1: Intercept Instructor Error ===")
     result1 = asyncio.run(test_intercept_instructor_error())
     
-    print("\n" + "="*50)
-    print("=== Test 2: Simple Prompt Test ===")
-    result2 = asyncio.run(test_simple_dependency_schema())
+    # print("\n" + "="*50)
+    # print("=== Test 2: Simple Prompt Test ===")
+    # result2 = asyncio.run(test_simple_dependency_schema())
     
     print(f"\n=== Summary ===")
     if result1:
@@ -229,7 +267,7 @@ if __name__ == "__main__":
     else:
         print("❌ Instructor test failed (expected)")
         
-    if result2:
-        print("✅ Simple test succeeded")
-    else:
-        print("❌ Simple test failed")
+    # if result2:
+    #     print("✅ Simple test succeeded")
+    # else:
+    #     print("❌ Simple test failed")
