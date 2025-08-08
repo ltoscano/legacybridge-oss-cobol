@@ -7,7 +7,7 @@
 **Updates** 
 
 - 08/07/2025: Tested with **LiteLLM** — best results with OpenAI o4 via Azure, Codex via Azure, Gemini via Vertex, and Claude via Vertex.
-- 08/07/2025: Tested with **OpenRouter** — performance on par with LiteLLM, plus support for Grok 3/4 and many more models.
+- 08/07/2025: Tested with **OpenRouter** — works on par with LiteLLM, plus support for Grok 3/4 and many more models.
 - 08/07/2025: **GPT-OSS** models (both locally and via OpenRouter) proved too limited for complex input/output schemas, so I’m exploring alternative solutions.
 - 08/08/2025: Tested with **GPT-5** — outstanding results!
 
