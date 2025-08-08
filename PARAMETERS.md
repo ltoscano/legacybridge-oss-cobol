@@ -243,6 +243,18 @@ These parameters allow you to use different models for different types of analys
 - **Description**: Enables detailed logging of AI API calls including tokens and costs.
 - **Usage**: Essential for monitoring usage and costs. Disable only if storage is a concern.
 
+### `SHOW_RAW_INPUT_TO_LLM`
+- **Type**: `boolean`
+- **Default**: `false`
+- **Description**: When `true`, logs the full raw prompt sent to the LLM including system prompt, messages, tools and key parameters.
+- **Usage**: Useful for debugging prompt construction. May include sensitive data, enable only in secure environments. Large payloads are truncated (~50 KB).
+
+### `SHOW_RAW_OUTPUT_FROM_LLM`
+- **Type**: `boolean`
+- **Default**: `false`
+- **Description**: When `true`, logs the full raw response payload returned by the LLM.
+- **Usage**: Helpful for troubleshooting provider responses. May include sensitive data, enable only in secure environments. Large payloads are truncated (~50 KB).
+
 ---
 
 ## 🔧 Configuration Best Practices

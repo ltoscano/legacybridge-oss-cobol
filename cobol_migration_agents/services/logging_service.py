@@ -72,6 +72,25 @@ class LoggingService:
         
         # Setup file logging
         self._setup_file_logging()
+
+    def _safe_dump_json(self, obj: Any, limit: int = 50_000) -> str:
+        """Safely dump an object to JSON/string with size limit to protect logs."""
+        try:
+            text = json.dumps(obj, default=str)
+        except Exception:
+            try:
+                # Fallback for objects with pydantic-like method
+                if hasattr(obj, 'model_dump'):
+                    text = json.dumps(obj.model_dump(), default=str)
+                elif hasattr(obj, 'model_dump_json'):
+                    text = obj.model_dump_json()
+                else:
+                    text = str(obj)
+            except Exception:
+                text = str(obj)
+        if len(text) > limit:
+            return text[:limit] + "... [truncated]"
+        return text
     
     def _setup_file_logging(self) -> None:
         """Setup file-based logging configuration."""
@@ -663,6 +682,22 @@ class LoggingService:
                 "messages_count": len(kwargs.get("messages", [])),
                 "tools_count": len(kwargs.get("tools", []))
             }
+            # If enabled, log full raw input payload including system prompt, messages, tools and params
+            if getattr(self.settings.logging_settings, 'show_raw_input_to_llm', False):
+                try:
+                    raw_input_payload = {
+                        k: kwargs.get(k) for k in [
+                            'model', 'messages', 'tools', 'tool_choice', 'temperature', 'top_p',
+                            'max_tokens', 'response_format', 'seed', 'stop', 'frequency_penalty',
+                            'presence_penalty'
+                        ] if k in kwargs or k in ['model']
+                    }
+                    self.logger.info(
+                        f"LLM RAW INPUT [{self._current_agent_name}] => " +
+                        self._safe_dump_json(raw_input_payload)
+                    )
+                except Exception as e:
+                    self.logger.debug(f"Failed to log raw LLM input: {e}")
             
             if self.settings.logging_settings.log_api_calls:
                 self.logger.debug(f"API request started - Agent: {self._current_agent_name}, "
@@ -672,6 +707,15 @@ class LoggingService:
             """Capture token usage from API response."""
             if not hasattr(response, 'usage') or not response.usage:
                 self.logger.warning("No usage information available in API response")
+                # Still optionally log the raw output payload
+                if getattr(self.settings.logging_settings, 'show_raw_output_from_llm', False):
+                    try:
+                        self.logger.info(
+                            f"LLM RAW OUTPUT [{self._current_agent_name}] <= " +
+                            self._safe_dump_json(response)
+                        )
+                    except Exception as e:
+                        self.logger.debug(f"Failed to log raw LLM output: {e}")
                 return response
             
             usage = response.usage
@@ -706,6 +750,16 @@ class LoggingService:
                 request_id=getattr(response, 'id', None)
             ))
             
+            # Optionally log full raw response payload
+            if getattr(self.settings.logging_settings, 'show_raw_output_from_llm', False):
+                try:
+                    self.logger.info(
+                        f"LLM RAW OUTPUT [{self._current_agent_name}] <= " +
+                        self._safe_dump_json(response)
+                    )
+                except Exception as e:
+                    self.logger.debug(f"Failed to log raw LLM output: {e}")
+
             if self.settings.logging_settings.log_api_calls:
                 self.logger.info(f"✅ API call completed - Agent: {self._current_agent_name}, "
                                f"Prompt: {prompt_tokens}, Completion: {completion_tokens}, "

@@ -96,6 +96,9 @@ class LoggingSettings(BaseModel):
     enable_file_logging: bool = Field(default=True, description="Enable file logging")
     enable_console_logging: bool = Field(default=True, description="Enable console logging")
     log_api_calls: bool = Field(default=True, description="Log API calls for debugging")
+    # When enabled, dump full raw LLM inputs/outputs to the log file
+    show_raw_input_to_llm: bool = Field(default=False, description="Log full prompts (messages, tools, params) sent to the LLM")
+    show_raw_output_from_llm: bool = Field(default=False, description="Log full raw responses returned by the LLM")
 
 
 class Settings(BaseModel):
@@ -162,7 +165,9 @@ class Settings(BaseModel):
             format=os.getenv("LOGGING_FORMAT", "%(asctime)s - %(name)s - %(levelname)s - %(message)s"),
             enable_file_logging=os.getenv("ENABLE_FILE_LOGGING", "true").lower() == "true",
             enable_console_logging=os.getenv("ENABLE_CONSOLE_LOGGING", "true").lower() == "true",
-            log_api_calls=os.getenv("LOG_API_CALLS", "true").lower() == "true"
+            log_api_calls=os.getenv("LOG_API_CALLS", "true").lower() == "true",
+            show_raw_input_to_llm=os.getenv("SHOW_RAW_INPUT_TO_LLM", "false").lower() == "true",
+            show_raw_output_from_llm=os.getenv("SHOW_RAW_OUTPUT_FROM_LLM", "false").lower() == "true"
         )
         
         return cls(
